@@ -29,11 +29,10 @@ public class Contents {
             if(!(input.equals("1"))^(input.equals("2"))){
                 System.out.println("1か2で入力してください。");{
                     rulecount += 1;
-                    System.out.println(rulecount);//
+                    System.out.println(rulecount);//デバッグ用ミスカウント表示
                     if (rulecount >= 5){
-                        System.out.println("5以上");
+                        System.out.println("5以上");//確認用表示、ここから終了処理へ以降予定
                     }
-                    continue;
                 }
             }
         }
