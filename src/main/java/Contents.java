@@ -31,7 +31,7 @@ public class Contents {
             System.out.println("10回目の入力までに正解を見つけられないとゲームオーバーになります。");
             System.out.println("また、数値入力時に\"G\"を入力するとギブアップとしてゲームを終了する事が出来ます。\n");
         }
-        if (!(input.equals("1")) ^ (input.equals("2"))) {//1か2以外はミス入力として処理。
+        if (!((input.equals("1")) || (input.equals("2")))) {//1か2以外はミス入力として処理。
             System.out.println("1か2で入力してください。");
             {
                 rulecount += 1;
