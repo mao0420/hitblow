@@ -11,7 +11,8 @@ public class Contents {
         rule(rulecount);//ルール説明メソッドへ
         game(trial);//ゲーム内容メソッドへ
     }
-    private static void rule(int rulecount){//ルール説明メソッド
+    //ルール説明メソッド
+    private static void rule(int rulecount){
         System.out.println("ルール説明を表示しますか？次の選択肢から数字で入力してください。");
         System.out.println("1.ルール説明を表示");
         System.out.println("2.ルール説明をスキップ");
@@ -44,7 +45,8 @@ public class Contents {
         }
         System.out.println("それでは、ヒット&ブローを開始します。\n");
     }
-    private static void game(int trial){//ゲーム内容メソッド
+    //ゲーム内容メソッド
+    private static void game(int trial){
         int[] ans = new int[3];//Answer用の配列、3つの1桁数字を格納する。
         ans[0] = (int)Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
         ans[1] = (int)Math.floor(Math.random() * 10);
@@ -59,7 +61,8 @@ public class Contents {
         System.out.println(Arrays.toString(ans));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
         input(trial);//数値入力メソッドへ
     }
-    private static void input(int trial){//数値入力メソッド
+    //数値入力メソッド
+    private static void input(int trial){
         trial++;
         System.out.println("試行回数:"+ trial +"回目\n");
         System.out.println("「3桁の数字」を「重複無し」で入力してください。");
