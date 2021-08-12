@@ -7,12 +7,16 @@ public class Contents {
     public static void main(String[] args) {//mainメソッド
         int rulecount = 0;//ルール説明のミスカウント初期化
         int trial = 0;//試行回数のカウンタ―初期化
+        boolean correct = true;
+        boolean isloop;
         System.out.println("ヒット&ブローへようこそ！");
-        rule(rulecount);//ルール説明メソッドへ
+        do{
+            isloop = rule(correct,rulecount);//ルール説明メソッドへ
+        }while(isloop);
         game(trial);//ゲーム内容メソッドへ
     }
     //ルール説明メソッド
-    private static void rule(int rulecount){
+    private static boolean rule(boolean correct,int rulecount){
         System.out.println("ルール説明を表示しますか？次の選択肢から数字で入力してください。");
         System.out.println("1.ルール説明を表示");
         System.out.println("2.ルール説明をスキップ");
@@ -41,9 +45,12 @@ public class Contents {
                     //終了メソッドへ
                 }
             }
-            rule(rulecount);//ミス入力時は再度入力処理へ戻す為、同じメソッドを再度読み込みループ。
+            correct = true;//ミス入力時は再度入力処理へ戻す為、同じメソッドを再度読み込みループ。
+            return correct;
         }
         System.out.println("それでは、ヒット&ブローを開始します。\n");
+        correct = false;
+        return correct;
     }
     //ゲーム内容メソッド
     private static void game(int trial){
@@ -59,10 +66,10 @@ public class Contents {
             ans[2] = (int)Math.floor(Math.random() * 10);
         }
         System.out.println(Arrays.toString(ans));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
-        input(trial);//数値入力メソッドへ
+        input(trial,ans);//数値入力メソッドへ
     }
     //数値入力メソッド
-    private static void input(int trial){
+    private static void input(int trial,int[] ans){
         trial++;
         System.out.println("試行回数:"+ trial +"回目\n");
         System.out.println("「3桁の数字」を「重複無し」で入力してください。");
@@ -75,6 +82,46 @@ public class Contents {
         if (input.equals("G")){//ギブアップ選択時、ゲームオーバーメソッドに移行する。
             System.out.println("ギブアップが選択されました。");
             //ゲームオーバーメソッドへ
+            return;
         }
+        int digit = input.length();
+        if (digit != 3){//数値の長さが3以外の場合はミス入力として処理。
+            System.out.println("3桁の数字で入力してください。");
+            //ミス入力処理メソッドへ
+            return;
+        }
+        if (!((input.matches("^[0-9]{3}$")) || (input.matches("^G$")))){//数値0~9の3桁、Gの1桁以外の入力を弾く
+            System.out.println("3桁の数字で入力してください。");
+            //ミス入力処理メソッドへ
+            return;
+        }
+        int prc[] = new int[3];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
+        prc[0] = (int)Math.floor(Integer.parseInt(input) / 100);//100の桁を取り出す、1/100を行い小数点切り捨て。
+        prc[1] = (int)Math.floor(Integer.parseInt(input) / 10 % 10);//10の桁を取り出す、1/10を行い、1/10の余りを取り出す。
+        prc[2] = (int)Math.floor(Integer.parseInt(input) % 10);//1の桁を取り出す、1/10の余りを取り出す。
+        System.out.println(Arrays.toString(prc));//＃確認用表示、それぞれ格納した配列を表示。
+        if(prc[0] == prc[1] || prc[0] == prc[2] || prc[1] == prc[2]){//数値の重複確認、
+            System.out.println("数字に重複があります、1つの回答内で同じ数字は使えません。");
+            //ミス入力処理メソッドへ
+            return;
+        }
+        judge(prc,ans);//判定メソッドへ
+    }
+    //判定メソッド
+    private static void judge(int[] prc,int[] ans){//＃実際はintだがデバッグ用にvoidで動作
+        int hit = 0;//ヒットのカウンタ―初期化
+        int blow = 0;//ブローのカウンタ―初期化
+        for(int i = 0; i < 3; i++){//iが3に到達した時ループから脱出する。
+            if(prc[i] == ans[i]){//入力数値と正解数値のそれぞれの桁を比較し、数値が同じ桁がある毎にhitが1加算される。
+                hit++;
+            }
+        }
+        //for(int i = 0; i < 3; i++){//iが3に到達した時ループから脱出する。
+            //if(prc[i] == ans[i]){//入力数値と正解数値のそれぞれ違う桁同士を比較し、数値が同じ違う桁がある毎にblowが1加算される。修正待ち。
+                //blow++;
+            //}
+        //}
+        System.out.println("ヒット:"+hit);
+        System.out.println("ブロー:"+blow);
     }
 }
