@@ -6,24 +6,25 @@ public class Contents {
     public static void main(String[] args) {//mainメソッド
         boolean retry = true;
         while(retry) {
-            int rulecount = 0;//ルール説明のミスカウント初期化
-            int misscount = 0;
+            int ruleCount = 0;//ルール説明のミスカウント初期化
+            int missCount = 0;
             int trial = 1;//試行回数のカウンタ―初期化、仕様上1スタート
             String[][] history = new String[10][4];//10回分の入力履歴の配列を初期化
             //boolean ruleloop;
             boolean esc;
             System.out.println("ヒット&ブローへようこそ！\n");
-           // while (ruleloop) {//falseになるまで繰り返す。
-                esc = rule(rulecount);//ルール説明メソッドへ
+            //while (ruleloop) {//falseになるまで繰り返す。
+                esc = rule(ruleCount);//ルール説明メソッドへ
             //}
             if(esc){
-                game(trial, history, misscount);//ゲーム内容メソッドへ
+                game(trial, history, missCount);//ゲーム内容メソッドへ
             }
             retry = end();//ゲーム終了メソッドへ
         }
     }
+
     //ルール説明メソッド
-    private static boolean rule(int rulecount){
+    private static boolean rule(int ruleCount){
         System.out.println("ルール説明を表示しますか？次の選択肢から数字で入力してください。");
         System.out.println("1.ルール説明を表示");
         System.out.println("2.ルール説明をスキップ");
@@ -47,19 +48,20 @@ public class Contents {
         }
         if (!((input.equals("1")) || (input.equals("2")))) {//1か2以外はミス入力として処理。
             System.out.println("1か2で入力してください。");
-            //rulecount++;//カウントを+1する。
-            //System.out.println(rulecount);//＃確認用ミスカウント表示。
-            //if (rulecount >= 5) {
+            //ruleCount++;//カウントを+1する。
+            //System.out.println(ruleCount);//＃確認用ミスカウント表示。
+            //if (ruleCount >= 5) {
                 //System.out.println("5以上");//＃確認用表示、ここから終了メソッドへ以降予定。
                 //終了メソッドへ
             //}
             //return true;//ミス入力時は再度入力処理へ戻す為、同じメソッドを再度読み込みループ。
-            return rulemiss(rulecount);
+            return rulemiss(ruleCount);//5回ミスした場合はここの結果がfalseとなる為、ゲーム内容メソッドをスルーして終了メソッドへ移行して欲しい。
         }
         System.out.println("それでは、ヒット&ブローを開始します。\n");
         //return false;
         return true;
     }
+
     //ゲーム内容メソッド
     private static void game(int trial,String[][] history,int misscount){
         int[] ans = new int[3];//Answer用の配列、3つの1桁数字を格納する。
@@ -76,6 +78,7 @@ public class Contents {
         //System.out.println(Arrays.toString(ans));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
         input(trial,ans,history,misscount);//数値入力メソッドへ
     }
+
     //数値入力メソッド
     private static void input(int trial, int[] ans, String[][] history,int misscount){
         System.out.println("現在の試行回数:"+ trial +"回目\n");
@@ -114,6 +117,7 @@ public class Contents {
         }
         judge(prc,ans,history,trial,input);//判定メソッドへ
     }
+
     //判定メソッド
     private static void judge(int[] prc,int[] ans,String[][] history,int trial,String input) {
         int hit = 0;//ヒットのカウンタ―初期化
@@ -154,6 +158,7 @@ public class Contents {
         trial++;//試行回数を1増やす
         input(trial,ans,history,0);//再度数値入力メソッドから繰り返す。その際ミスカウントをリセットする。
     }
+
     //ルール説明ミスメソッド
     private static boolean rulemiss(int rulecount){
         rulecount++;//カウントを+1する。
@@ -165,6 +170,7 @@ public class Contents {
         rule(rulecount);//ルール説明メソッドへ
         return true;
     }
+
     //数値入力ミスメソッド
     private static void nummiss(int trial, int[] ans, String[][] history,int misscount){
         misscount++;//カウントを+1する。
@@ -175,17 +181,20 @@ public class Contents {
         }
         input(trial,ans,history,misscount);
     }
+
     //ゲームクリアメソッド
     private static void clear(int[] ans,int trial){
         System.out.println("ゲームクリア！");
         System.out.println("正解の数字は" + Arrays.toString(ans) + "でした！");
         System.out.println("試行回数:" + trial + "回\n");
     }
+
     //ゲームオーバーメソッド
     private static void over(int[] ans,int trial){
         System.out.println("ゲームオーバー！");
         System.out.println("正解の数字は" + Arrays.toString(ans) + "でした！\n");
     }
+
     //ゲーム終了メソッド
     private static boolean end(){
         System.out.println("ゲームをリトライしますか？次の選択肢から数字で入力してください。");
