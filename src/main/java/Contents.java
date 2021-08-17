@@ -105,8 +105,8 @@ public class Contents {
             return;
         }
         int[] prc = new int[3];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
-        prc[0] = (int)Math.floor(Integer.parseInt(input) / 100);//100の桁を取り出す、1/100を行い小数点切り捨て。
-        prc[1] = (int)Math.floor(Integer.parseInt(input) / 10 % 10);//10の桁を取り出す、1/10を行い、1/10の余りを取り出す。
+        prc[0] = Integer.parseInt(input) / 100;//100の桁を取り出す、1/100を行い小数点切り捨て。
+        prc[1] = Integer.parseInt(input) / 10 % 10;//10の桁を取り出す、1/10を行い、1/10の余りを取り出す。
         prc[2] = (int)Math.floor(Integer.parseInt(input) % 10);//1の桁を取り出す、1/10の余りを取り出す。
         //System.out.println(Arrays.toString(prc));//＃確認用表示、それぞれ格納した配列を表示。
         if(prc[0] == prc[1] || prc[0] == prc[2] || prc[1] == prc[2]){//数値の重複確認、
@@ -163,18 +163,6 @@ public class Contents {
         }
         return blow;
     }
-
-    /*//ルール説明ミスメソッド
-    private static boolean ruleMiss(int ruleCount){
-        ruleCount++;//カウントを+1する。
-        //System.out.println(ruleCount);//＃確認用ミスカウント表示。
-        if (ruleCount >= 5) {
-            System.out.println("入力ミスが連続した為、ゲームを終了します\n");//＃確認用表示、ここから終了メソッドへ以降予定。
-            return false;
-        }
-        rule(ruleCount);//ルール説明メソッドへ
-        return true;
-    }*/
 
     //数値入力ミスメソッド
     private static void numMiss(int trial, int[] ans, String[][] history,int missCount){
