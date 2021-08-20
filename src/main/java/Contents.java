@@ -26,52 +26,50 @@ public class Contents {
         }
     }
 
+    /**
+     * hit & blow のタイトルを表示する
+     */
     private static void showWelcomeMessage() {
-        try(FileReader fileReader = new FileReader("welcome.txt")){
+        readFile("welcome.txt");
+    }
+
+    /**
+     * ルール説明を表示する
+     */
+    private static void showRule() {
+        readFile("rule.txt");
+    }
+
+    private static void readFile(String s) {
+        try(FileReader fileReader = new FileReader(s)){
             int text;
             while ((text = fileReader.read()) != -1) {
                 System.out.print((char)text);
             }
-            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //ルール説明メソッド
     private static boolean rule(int ruleCount) {
-        System.out.println("ルール説明を表示しますか？次の選択肢から数字で入力してください。");
-        System.out.println("1.ルール説明を表示");
-        System.out.println("2.ルール説明をスキップ");
+        System.out.println(ContentsConst.START_MESSAGE);
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。2は特に処理が無い為そのままif文を通り過ぎる。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
-        if (input.equals("1")) {//1が入力された場合、ルール説明を表示。
-            System.out.println("ルール説明を表示します。");
-            System.out.println("ヒット&ブローはプログラム側がランダムで設定した数字を当てるゲームです。\n");
-            System.out.println("このプログラムでは被り無しの0～9の数字が3桁設定されます。");
-            System.out.println("ユーザー側が3桁の数字を入力し、その数字と正解の数字を比較して次のヒントが表示されます。\n");
-            System.out.println("ヒット:桁の位置も数字も合っている数字の数です。");
-            System.out.println("ブロー:数字は合っているが、桁の位置が違う数字の数です。\n");
-            System.out.println("例:正解が[083]入力が[385]の時、");
-            System.out.println("　 8は桁の位置も数字も合っている為ヒット、3は桁の位置が違うが数字は合っている為ブローとなり、");
-            System.out.println("　 ヒットとブローの数がそれぞれ1つずつの為、ヒット:1 ブロー:1と表示されます。\n");
-            System.out.println("その後、再度数字の入力から繰り返し、3桁全部の数字を当てた場合はゲームクリアです。");
-            System.out.println("少ない回数でのクリアを目指してください。\n");
-            System.out.println("10回目の入力までに正解の数字を見つけられないとゲームオーバーになります。");
-            System.out.println("また、数値入力時に\"G\"を入力するとギブアップとしてゲームを終了する事が出来ます。\n\n");
+        if (input.equals(ContentsConst.ONE)) {//1が入力された場合、ルール説明を表示。
+            showRule();
         }
-        if (!((input.equals("1")) || (input.equals("2")))) {//1か2以外はミス入力として処理。
-            System.out.println("1か2で入力してください。");
+        if (!((input.equals(ContentsConst.ONE)) || (input.equals(ContentsConst.TWO)))) {//1か2以外はミス入力として処理。
+            System.out.println(ContentsConst.CHOOSE_ONE_OR_TWO);
             //System.out.println(ruleCount);//＃確認用ミスカウント表示。
             if (ruleCount >= 5) {
-                System.out.println("入力ミスが連続した為、ゲームを終了します。\n");//ここから終了メソッドへ以降予定。
+                System.out.println(ContentsConst.WARNING_GAME_END);//ここから終了メソッドへ以降予定。
                 return false;
             }
             return true;//ミス入力時は再度入力処理へ戻す為、同じメソッドを再度読み込みループ。
             //return ruleMiss(ruleCount);//5回ミスした場合はここの結果がfalseとなる為、ゲーム内容メソッドをスルーして終了メソッドへ移行して欲しい。
         }
-        System.out.println("それでは、ヒット&ブローを開始します。\n");
+        System.out.println(ContentsConst.START_HIT_BLOW);
         return false;
         //return true;
     }
@@ -95,27 +93,25 @@ public class Contents {
 
     //数値入力メソッド
     private static void input(int trial, int[] ans, String[][] history, int missCount) {
-        System.out.println("現在までの入力回数:" + trial + "回\n");
-        System.out.println("「3桁の数字」を「重複無し」で入力してください。");
-        System.out.println("ギブアップする際は\"G\"を入力してください。");
+        System.out.printf((ContentsConst.INPUT_MESSAGE) + "%n", trial);
         String input = scan.nextLine();//入力フォーム。3桁の整数、G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = input.toUpperCase();//小文字の英数字を大文字に変換。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
         //System.out.println(input);//＃確認用表示、入力された内容が変換されているかの確認。
         if (input.equals("G")) {//ギブアップ選択時、ゲームオーバーメソッドに移行する。
-            System.out.println("ギブアップが選択されました。");
+            System.out.println(ContentsConst.CHOOSE_GIVE_UP);
             over(ans);//ゲームオーバーメソッドへ
             return;
         }
         int digit = input.length();
         if (digit != 3) {//数値の長さが3以外の場合はミス入力として処理。
-            System.out.println("3桁の数字で入力してください。");
+            System.out.println(ContentsConst.INPUT_TREE_DIGIT);
             numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
             return;//ミス回数が5回以上の場合は数値入力ミスメソッドで再読み込みがされない為、ここでメソッドを終了し、終了メソッドへ移行する。
         }
         if (!((input.matches("^[0-9]{3}$")) || (input.matches("^G$")))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
-            System.out.println("3桁の数字で入力してください。");
+            System.out.println(ContentsConst.INPUT_TREE_DIGIT);
             numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
             return;
         }
@@ -125,7 +121,7 @@ public class Contents {
         prc[2] = (int) Math.floor(Integer.parseInt(input) % 10);//1の桁を取り出す、1/10の余りを取り出す。
         //System.out.println(Arrays.toString(prc));//＃確認用表示、それぞれ格納した配列を表示。
         if (prc[0] == prc[1] || prc[0] == prc[2] || prc[1] == prc[2]) {//数値の重複確認、
-            System.out.println("数字に重複があります、1つの回答内で同じ数字は使えません。");
+            System.out.println(ContentsConst.WARNING_DUPLICATION);
             numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
             return;
         }
@@ -143,14 +139,14 @@ public class Contents {
             }
         }
         blow = getBlow(prc, ans, blow);//ブロー計算メソッドへ
-        System.out.println("ヒット:" + hit);//桁も数字も合っている数。
-        System.out.println("ブロー:" + blow + "\n");//桁は合っていないが数字は合っている数、ヒットとの合計が3より上になる事は無い。
+        System.out.printf((ContentsConst.HIT) + "%n", hit);//桁も数字も合っている数。
+        System.out.printf((ContentsConst.BLOW) + "%n", blow);//桁は合っていないが数字は合っている数、ヒットとの合計が3より上になる事は無い。
         if (hit == 3) {//hitが3桁全てである場合はゲームクリアとする。
             clear(ans, trial);//ゲームクリアメソッドへ
             return;
         }
         if (trial == 10) {//試行回数が10回目でゲームクリアに到達できない場合はゲームオーバーとする。
-            System.out.println("10回目の入力までに正解の数字を見つけられませんでした。\n");
+            System.out.println(ContentsConst.CANNOT_FOUND_CORRECT_NUMBER);
             over(ans);//ゲームオーバーメソッドへ
             return;
         }
@@ -158,9 +154,9 @@ public class Contents {
         history[trial - 1][1] = input;
         history[trial - 1][2] = String.valueOf(hit);
         history[trial - 1][3] = String.valueOf(blow);
-        System.out.println("入力回数    入力した数字      ヒット     ブロー");
+        System.out.println(ContentsConst.RESULT_HEADER);
         for (int k = 0; k < trial; k++) {
-            System.out.println(history[k][0] + "回目         " + history[k][1] + "            " + history[k][2] + "         " + history[k][3]);
+            System.out.printf((ContentsConst.HISTORY) + "%n", history[k][0], history[k][1], history[k][2], history[k][3]);
         }
         input(trial, ans, history, 0);//再度数値入力メソッドから繰り返す。その際ミスカウントをリセットする。
     }
@@ -184,7 +180,7 @@ public class Contents {
         missCount++;//カウントを+1する。
         //System.out.println(missCount);//＃確認用ミスカウント表示。
         if (missCount >= 5) {
-            System.out.println("入力ミスが連続した為、ゲームを終了します。\n");//＃確認用表示、ここから終了メソッドへ以降予定。
+            System.out.println(ContentsConst.WARNING_GAME_END);//＃確認用表示、ここから終了メソッドへ以降予定。
             return;
         }
         input(trial, ans, history, missCount);
@@ -192,33 +188,28 @@ public class Contents {
 
     //ゲームクリアメソッド
     private static void clear(int[] ans, int trial) {
-        System.out.println("ゲームクリア！");
-        System.out.println("正解の数字は" + Arrays.toString(ans) + "でした！");
-        System.out.println("入力回数:" + trial + "回\n");
+        System.out.printf((ContentsConst.GAME_CLEAR), Arrays.toString(ans),trial);
     }
 
     //ゲームオーバーメソッド
     private static void over(int[] ans) {
-        System.out.println("ゲームオーバー！");
-        System.out.println("正解の数字は" + Arrays.toString(ans) + "でした！\n");
+        System.out.printf(ContentsConst.GAME_OVER, Arrays.toString(ans));
     }
 
     //ゲーム終了メソッド
     private static boolean end() {
-        System.out.println("ゲームをリトライしますか？次の選択肢から数字で入力してください。");
-        System.out.println("1.ゲームをリトライ");
-        System.out.println("2.ゲームを終了");
+        System.out.println(ContentsConst.CHOOSE_RETRY);
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
-        if (input.equals("1")) {//1が入力された場合、再度メインメソッドを読み込む。
-            System.out.println("ゲームをリトライします。\n");
+        if (input.equals(ContentsConst.ONE)) {//1が入力された場合、再度メインメソッドを読み込む。
+            System.out.println(ContentsConst.GAME_RETRY);
             return true;
         }
-        if (input.equals("2")) {//2が入力された場合、プログラムを終了する。
-            System.out.println("ゲームを終了します。");
+        if (input.equals(ContentsConst.TWO)) {//2が入力された場合、プログラムを終了する。
+            System.out.println(ContentsConst.GAME_END);
         } else {//1か2以外はミス入力としてエラーメッセ―ジを挟み、2と同様にプログラムを終了する。
-            System.out.println("選択肢以外の入力がされている為、ゲームを終了します。");
+            System.out.println(ContentsConst.WARNING_GAME_END_2);
         }
         return false;
     }
