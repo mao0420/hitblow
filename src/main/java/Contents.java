@@ -13,11 +13,9 @@ public class Contents {
             int missCount = 0;
             int trial = 0;//試行回数のカウンタ―初期化
             String[][] history = new String[10][4];//10回分の入力履歴の配列を初期化
-            boolean ruleLoop = true;
-            showWelcomeMessage();
-            while (ruleLoop) {//falseになるまで繰り返す。
+            System.out.println(showWelcomeMessage());
+            while (rule(ruleCount)) {//falseになるまで繰り返す。
                 ruleCount++;//カウントを+1する。
-                ruleLoop = rule(ruleCount);//ルール説明メソッドへ
             }
             if (ruleCount <= 4) {
                 game(trial, history, missCount);//ゲーム内容メソッドへ
@@ -29,26 +27,28 @@ public class Contents {
     /**
      * hit & blow のタイトルを表示する
      */
-    private static void showWelcomeMessage() {
-        readFile("welcome.txt");
+    public static String showWelcomeMessage() {
+        return readFile("welcome.txt");
     }
 
     /**
      * ルール説明を表示する
      */
-    private static void showRule() {
-        readFile("rule.txt");
+    public static String showRule() {
+        return readFile("rule.txt");
     }
 
-    private static void readFile(String s) {
+    private static String readFile(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
         try (FileReader fileReader = new FileReader(s)) {
             int text;
             while ((text = fileReader.read()) != -1) {
-                System.out.print((char) text);
+                stringBuilder.append((char) text);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return stringBuilder.toString();
     }
 
     private static boolean rule(int ruleCount) {
