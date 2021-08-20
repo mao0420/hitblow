@@ -76,19 +76,25 @@ public class Contents {
 
     //ゲーム内容メソッド
     private static void game(int trial, String[][] history, int missCount) {
-        int[] ans = new int[3];//Answer用の配列、3つの1桁数字を格納する。
-        ans[0] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
-        ans[1] = (int) Math.floor(Math.random() * 10);
-        ans[2] = (int) Math.floor(Math.random() * 10);
+        int[] ans = createAnswerNumber();
         //System.out.println(Arrays.toString(ans));//＃確認用表示、3桁分の数字をランダムに設定、この時点で含まれる重複は以下で処理。
         while (ans[0] == ans[1]) {//1つめと2つめの数字が重複した場合は違う数字になるまで2つめの数値のランダムを繰り返す。
-            ans[1] = (int) Math.floor(Math.random() * 10);
+            ans[1] = getRandomNumber();
         }
         while (ans[0] == ans[2] || ans[1] == ans[2]) {//1つめと3つめ、2つめと3つめのどちらかが重複した場合は違う数字になるまで3つめの数値のランダムを繰り返す。
-            ans[2] = (int) Math.floor(Math.random() * 10);
+            ans[2] = getRandomNumber();
         }
         //System.out.println(Arrays.toString(ans));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
         input(trial, ans, history, missCount);//数値入力メソッドへ
+    }
+
+    private static int[] createAnswerNumber() {
+        //各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
+        return  Arrays.stream(new int[3]).map(i -> getRandomNumber()).toArray();
+    }
+
+    private static int getRandomNumber() {
+        return (int) Math.floor(Math.random() * 10);
     }
 
     //数値入力メソッド
@@ -188,7 +194,7 @@ public class Contents {
 
     //ゲームクリアメソッド
     private static void clear(int[] ans, int trial) {
-        System.out.printf((ContentsConst.GAME_CLEAR), Arrays.toString(ans),trial);
+        System.out.printf((ContentsConst.GAME_CLEAR), Arrays.toString(ans), trial);
     }
 
     //ゲームオーバーメソッド
