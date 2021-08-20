@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.text.Normalizer;
@@ -13,7 +14,7 @@ public class Contents {
             int trial = 0;//試行回数のカウンタ―初期化
             String[][] history = new String[10][4];//10回分の入力履歴の配列を初期化
             boolean ruleLoop = true;
-            System.out.println("ヒット&ブローへようこそ！\n");
+            showWelcomeMessage();
             while (ruleLoop) {//falseになるまで繰り返す。
                 ruleCount++;//カウントを+1する。
                 ruleLoop = rule(ruleCount);//ルール説明メソッドへ
@@ -22,6 +23,18 @@ public class Contents {
                 game(trial, history, missCount);//ゲーム内容メソッドへ
             }
             retry = end();//ゲーム終了メソッドへ
+        }
+    }
+
+    private static void showWelcomeMessage() {
+        try(FileReader fileReader = new FileReader("welcome.txt")){
+            int text;
+            while ((text = fileReader.read()) != -1) {
+                System.out.print((char)text);
+            }
+            System.out.println();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
