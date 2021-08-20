@@ -41,10 +41,10 @@ public class Contents {
     }
 
     private static void readFile(String s) {
-        try(FileReader fileReader = new FileReader(s)){
+        try (FileReader fileReader = new FileReader(s)) {
             int text;
             while ((text = fileReader.read()) != -1) {
-                System.out.print((char)text);
+                System.out.print((char) text);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class Contents {
 
     private static int[] createAnswerNumber() {
         //各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
-        return  Arrays.stream(new int[3]).map(i -> getRandomNumber()).toArray();
+        return Arrays.stream(new int[3]).map(i -> getRandomNumber()).toArray();
     }
 
     private static int getRandomNumber() {
