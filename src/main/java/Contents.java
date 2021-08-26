@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -36,20 +34,7 @@ public class Contents {
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
         if (input.equals("1")) {//1が入力された場合、ルール説明を表示。
-//            readText();
-            System.out.println("ルール説明を表示します。");
-            System.out.println("ヒット&ブローはプログラム側がランダムで設定した数字を当てるゲームです。\n");
-            System.out.println("このプログラムでは被り無しの0～9の数字が3桁設定されます。");
-            System.out.println("ユーザー側が3桁の数字を入力し、その数字と正解の数字を比較して次のヒントが表示されます。\n");
-            System.out.println("ヒット:桁の位置も数字も合っている数字の数です。");
-            System.out.println("ブロー:数字は合っているが、桁の位置が違う数字の数です。\n");
-            System.out.println("例:正解が[083]入力が[385]の時、");
-            System.out.println("　 8は桁の位置も数字も合っている為ヒット、3は桁の位置が違うが数字は合っている為ブローとなり、");
-            System.out.println("　 ヒットとブローの数がそれぞれ1つずつの為、ヒット:1 ブロー:1と表示されます。\n");
-            System.out.println("その後、再度数字の入力から繰り返し、3桁全部の数字を当てた場合はゲームクリアです。");
-            System.out.println("少ない回数でのクリアを目指してください。\n");
-            System.out.println("10回目の入力までに正解の数字を見つけられないとゲームオーバーになります。");
-            System.out.println("また、数値入力時に\"G\"を入力するとギブアップとしてゲームを終了する事が出来ます。\n\n");
+            readText();
         }
         if (!((input.equals(Constants.ONE)) || (input.equals(Constants.TWO)))) {//1か2以外はミス入力として処理。
             System.out.println(Constants.CHOOSE_ONE_OR_TWO);
@@ -59,11 +44,9 @@ public class Contents {
                 return false;
             }
             return true;//ミス入力時は再度入力処理へ戻す為、同じメソッドを再度読み込みループ。
-            //return ruleMiss(ruleCount);//5回ミスした場合はここの結果がfalseとなる為、ゲーム内容メソッドをスルーして終了メソッドへ移行して欲しい。
         }
         System.out.println(Constants.START_MESSAGE);
         return false;
-        //return true;
     }
 
     //ゲーム内容メソッド
@@ -167,6 +150,21 @@ public class Contents {
         return blow;
     }
 
+    //テキストファイル読み込みメソッド
+    private static void readText() {
+        try {
+            FileReader fileReader = new FileReader("src/main/java/Description.txt");
+            int ch = fileReader.read();
+            while (ch != -1) {
+                System.out.print((char) ch);
+                ch = fileReader.read();
+            }
+        }
+        catch (IOException e) {
+            System.out.println();
+        }
+    }
+
     //数値入力ミスメソッド
     private static void numMiss(int trial, int[] ans, String[][] history, int missCount) {
         missCount++;//カウントを+1する。
@@ -205,22 +203,4 @@ public class Contents {
         }
         return false;
     }
-
-//    //テキストファイル読み込みメソッド
-//    private static void readText() {
-//        try {
-//            FileReader fileReader = new FileReader("Description.txt");
-//
-//            int ch = fileReader.read();
-//            while (ch != -1) {
-//                System.out.print((char) ch);
-//
-//                ch = fileReader.read();
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.out.println(e);
-//        } catch (IOException e) {
-//            System.out.println(e);
-//        }
-//    }
 }
