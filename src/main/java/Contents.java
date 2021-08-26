@@ -52,9 +52,9 @@ public class Contents {
     //ゲーム内容メソッド
     private static void game(int trial, String[][] history, int missCount) {
         int[] ans = new int[3];//Answer用の配列、3つの1桁数字を格納する。
-        ans[0] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
-        ans[1] = (int) Math.floor(Math.random() * 10);
-        ans[2] = (int) Math.floor(Math.random() * 10);
+        for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
+            ans[i] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
+        }
         //System.out.println(Arrays.toString(ans));//＃確認用表示、3桁分の数字をランダムに設定、この時点で含まれる重複は以下で処理。
         while (ans[0] == ans[1]) {//1つめと2つめの数字が重複した場合は違う数字になるまで2つめの数値のランダムを繰り返す。
             ans[1] = (int) Math.floor(Math.random() * 10);
