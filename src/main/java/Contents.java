@@ -28,13 +28,13 @@ public class Contents {
     }
 
     //ルール説明メソッド
-    private static boolean rule(int ruleCount) {
+    public static boolean rule(int ruleCount) {
         System.out.println(Constants.DESCRIPTION_CHOOSE);
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。2は特に処理が無い為そのままif文を通り過ぎる。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
         if (input.equals("1")) {//1が入力された場合、ルール説明を表示。
-            readText();
+            System.out.println(readText("src/main/java/Description.txt"));
         }
         if (!((input.equals(Constants.ONE)) || (input.equals(Constants.TWO)))) {//1か2以外はミス入力として処理。
             System.out.println(Constants.CHOOSE_ONE_OR_TWO);
@@ -137,7 +137,7 @@ public class Contents {
     }
 
     //ブロー計算メソッド
-    private static int getBlow(int[] prc, int[] ans, int blow) {
+    public static int getBlow(int[] prc, int[] ans, int blow) {
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
             for (int j = 0; j < 3; j++) {//jが3に到達した時ループから脱出し、iのカウンターを増やし再度カウントし直す。
                 if (i != j) {//iとjが同数(ヒットと同じ)の場合は無視して次のループへ。
@@ -151,18 +151,17 @@ public class Contents {
     }
 
     //テキストファイル読み込みメソッド
-    private static void readText() {
-        try {
-            FileReader fileReader = new FileReader("src/main/java/Description.txt");
-            int ch = fileReader.read();
-            while (ch != -1) {
-                System.out.print((char) ch);
-                ch = fileReader.read();
+    public static String readText(String filePath) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (FileReader fileReader = new FileReader(filePath)) {
+            int lineText;
+            while ((lineText = fileReader.read()) != -1) {
+                stringBuilder.append((char) lineText);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {
-            System.out.println();
-        }
+        return stringBuilder.toString();
     }
 
     //数値入力ミスメソッド
