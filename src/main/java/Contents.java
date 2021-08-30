@@ -33,7 +33,7 @@ public class Contents {
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。2は特に処理が無い為そのままif文を通り過ぎる。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
-        if (input.equals("1")) {//1が入力された場合、ルール説明を表示。
+        if (input.equals(Constants.ONE)) {//1が入力された場合、ルール説明を表示。
             System.out.println(readText("src/main/java/Description.txt"));
         }
         if (!((input.equals(Constants.ONE)) || (input.equals(Constants.TWO)))) {//1か2以外はミス入力として処理。
@@ -149,6 +149,16 @@ public class Contents {
         }
         return blow;
     }
+//
+//    //ヒット確認
+//    public static int checkHit(int hit){
+//        return hit;
+//    }
+//
+//    //ブロー確認
+//    public static int checkBlow(int blow){
+//        return blow;
+//    }
 
     //テキストファイル読み込みメソッド
     public static String readText(String filePath) {

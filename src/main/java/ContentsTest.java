@@ -32,11 +32,46 @@ class ContentsTest {
     }
 
 //    @Test
-//    void testGetBlow() {
-//        String testBlow = "[0-3]";
-//        int conversionBlow = Contents.getBlow(null,null,0);
-//        String resultBlow = String.valueOf(conversionBlow);
-//        System.out.print(resultBlow);
-//        //assertEquals(testBlow, resultBlow);
+//    void testGetHit() {
+//        //int testHit = 0;
+//        int hit = 0;
+//        int resultHit = Contents.checkHit(hit);
+//        assertEquals(testHit, resultHit);
 //    }
+
+    @Test
+    void testGetBlow0() {
+        int testBlow = 0;
+        int[] a = {0,1,2};
+        int[] b = {0,1,2};
+        int resultBlow = Contents.getBlow(a,b,0);
+        assertEquals(testBlow, resultBlow);
+    }
+
+    @Test
+    void testGetBlow1() {
+        int testBlow = 1;
+        int[] a = {0,1,2};
+        int[] b = {2,3,4};
+        int resultBlow = Contents.getBlow(a,b,0);
+        assertEquals(testBlow, resultBlow);
+    }
+
+    @Test
+    void testGetBlow2() {
+        int testBlow = 2;
+        int[] a = {0,1,2};
+        int[] b = {1,2,3};
+        int resultBlow = Contents.getBlow(a,b,0);
+        assertEquals(testBlow, resultBlow);
+    }
+
+    @Test
+    void testGetBlow3() {
+        int testBlow = 3;
+        int[] a = {0,1,2};
+        int[] b = {2,0,1};
+        int resultBlow = Contents.getBlow(a,b,0);
+        assertEquals(testBlow, resultBlow);
+    }
 }
