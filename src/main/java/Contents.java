@@ -12,6 +12,7 @@ public class Contents {
         while (retry) {
             int ruleCount = 0;//ルール説明のミスカウント初期化
             int missCount = 0;
+            int[] correct = new int[3];//Answer用の配列、3つの1桁数字を格納する。
             int trial = 0;//試行回数のカウンタ―初期化
             String[][] history = new String[10][4];//10回分の入力履歴の配列を初期化
             boolean ruleLoop = true;
@@ -21,7 +22,8 @@ public class Contents {
                 ruleLoop = rule(ruleCount);//ルール説明メソッドへ
             }
             if (ruleCount <= 4) {
-                game(trial, history, missCount);//ゲーム内容メソッドへ
+                int[] answer = game(correct);//ゲーム内容メソッドへ
+                input(trial, answer, history, missCount);//数値入力メソッドへ
             }
             retry = end();//ゲーム終了メソッドへ
         }
@@ -50,24 +52,23 @@ public class Contents {
     }
 
     //ゲーム内容メソッド
-    private static void game(int trial, String[][] history, int missCount) {
-        int[] ans = new int[3];//Answer用の配列、3つの1桁数字を格納する。
+    public static int[] game(int[] correct) {
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
-            ans[i] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
+            correct[i] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
         }
-        //System.out.println(Arrays.toString(ans));//＃確認用表示、3桁分の数字をランダムに設定、この時点で含まれる重複は以下で処理。
-        while (ans[0] == ans[1]) {//1つめと2つめの数字が重複した場合は違う数字になるまで2つめの数値のランダムを繰り返す。
-            ans[1] = (int) Math.floor(Math.random() * 10);
+        //System.out.println(Arrays.toString(correct));//＃確認用表示、3桁分の数字をランダムに設定、この時点で含まれる重複は以下で処理。
+        while (correct[0] == correct[1]) {//1つめと2つめの数字が重複した場合は違う数字になるまで2つめの数値のランダムを繰り返す。
+            correct[1] = (int) Math.floor(Math.random() * 10);
         }
-        while (ans[0] == ans[2] || ans[1] == ans[2]) {//1つめと3つめ、2つめと3つめのどちらかが重複した場合は違う数字になるまで3つめの数値のランダムを繰り返す。
-            ans[2] = (int) Math.floor(Math.random() * 10);
+        while (correct[0] == correct[2] || correct[1] == correct[2]) {//1つめと3つめ、2つめと3つめのどちらかが重複した場合は違う数字になるまで3つめの数値のランダムを繰り返す。
+            correct[2] = (int) Math.floor(Math.random() * 10);
         }
-        //System.out.println(Arrays.toString(ans));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
-        input(trial, ans, history, missCount);//数値入力メソッドへ
+        //System.out.println(Arrays.toString(correct));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
+        return correct;
     }
 
     //数値入力メソッド
-    private static void input(int trial, int[] ans, String[][] history, int missCount) {
+    private static void input(int trial, int[] answer, String[][] history, int missCount) {
         System.out.printf((Constants.INPUT_MESSAGE) + "%n", trial);
         String input = scan.nextLine();//入力フォーム。3桁の整数、G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
@@ -76,18 +77,18 @@ public class Contents {
         //System.out.println(input);//＃確認用表示、入力された内容が変換されているかの確認。
         if (input.equals("G")) {//ギブアップ選択時、ゲームオーバーメソッドに移行する。
             System.out.println(Constants.CHOOSE_GIVE_UP);
-            over(ans);//ゲームオーバーメソッドへ
+            over(answer);//ゲームオーバーメソッドへ
             return;
         }
         int digit = input.length();
         if (digit != 3) {//数値の長さが3以外の場合はミス入力として処理。
             System.out.println(Constants.INPUT_THREE_DIGIT);
-            numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
+            numMiss(trial, answer, history, missCount);//数値入力ミスメソッドへ
             return;//ミス回数が5回以上の場合は数値入力ミスメソッドで再読み込みがされない為、ここでメソッドを終了し、終了メソッドへ移行する。
         }
         if (!((input.matches("^[0-9]{3}$")) || (input.matches("^G$")))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
             System.out.println(Constants.INPUT_THREE_DIGIT);
-            numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
+            numMiss(trial, answer, history, missCount);//数値入力ミスメソッドへ
             return;
         }
         int[] prc = new int[3];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
@@ -97,10 +98,10 @@ public class Contents {
         //System.out.println(Arrays.toString(prc));//＃確認用表示、それぞれ格納した配列を表示。
         if (prc[0] == prc[1] || prc[0] == prc[2] || prc[1] == prc[2]) {//数値の重複確認、
             System.out.println(Constants.DUPLICATE_NUMBERS);
-            numMiss(trial, ans, history, missCount);//数値入力ミスメソッドへ
+            numMiss(trial, answer, history, missCount);//数値入力ミスメソッドへ
             return;
         }
-        judge(prc, ans, history, trial, input);//判定メソッドへ
+        judge(prc, answer, history, trial, input);//判定メソッドへ
     }
 
     //判定メソッド

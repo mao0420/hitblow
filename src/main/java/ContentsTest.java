@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ContentsTest {
 
@@ -33,13 +33,23 @@ class ContentsTest {
         assertEquals(description, resultDescription);
     }
 
+    //正解数値設定テスト
+    @Test
+    void testGame() {
+        int[] answer = {1, 2, 3};
+        int[] actual = Contents.game(answer);
+        assertTrue(actual[0] != actual[1]);
+        assertTrue(actual[0] != actual[2]);
+        assertTrue(actual[1] != actual[2]);
+    }
+
     //ヒット数0テスト
     @Test
     void testGetHit0() {
         int expect = 0;
-        int[] a = {0, 1, 2};
-        int[] b = {3, 4, 5};
-        int actual = Contents.getHit(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {3, 4, 5};
+        int actual = Contents.getHit(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -47,9 +57,9 @@ class ContentsTest {
     @Test
     void testGetHit1() {
         int expect = 1;
-        int[] a = {0, 1, 2};
-        int[] b = {0, 3, 4};
-        int actual = Contents.getHit(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 3, 4};
+        int actual = Contents.getHit(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -57,9 +67,9 @@ class ContentsTest {
     @Test
     void testGetHit2() {
         int expect = 2;
-        int[] a = {0, 1, 2};
-        int[] b = {0, 1, 3};
-        int actual = Contents.getHit(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 3};
+        int actual = Contents.getHit(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -67,9 +77,9 @@ class ContentsTest {
     @Test
     void testGetHit3() {
         int expect = 3;
-        int[] a = {0, 1, 2};
-        int[] b = {0, 1, 2};
-        int actual = Contents.getHit(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 2};
+        int actual = Contents.getHit(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -77,9 +87,9 @@ class ContentsTest {
     @Test
     void testGetBlow0() {
         int expect = 0;
-        int[] a = {0, 1, 2};
-        int[] b = {0, 1, 2};
-        int actual = Contents.getBlow(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 2};
+        int actual = Contents.getBlow(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -87,9 +97,9 @@ class ContentsTest {
     @Test
     void testGetBlow1() {
         int expect = 1;
-        int[] a = {0, 1, 2};
-        int[] b = {2, 3, 4};
-        int actual = Contents.getBlow(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {2, 3, 4};
+        int actual = Contents.getBlow(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -97,9 +107,9 @@ class ContentsTest {
     @Test
     void testGetBlow2() {
         int expect = 2;
-        int[] a = {0, 1, 2};
-        int[] b = {1, 2, 3};
-        int actual = Contents.getBlow(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {1, 2, 3};
+        int actual = Contents.getBlow(answer, input, 0);
         assertEquals(expect, actual);
     }
 
@@ -107,9 +117,9 @@ class ContentsTest {
     @Test
     void testGetBlow3() {
         int expect = 3;
-        int[] a = {0, 1, 2};
-        int[] b = {2, 0, 1};
-        int actual = Contents.getBlow(a, b, 0);
+        int[] answer = {0, 1, 2};
+        int[] input = {2, 0, 1};
+        int actual = Contents.getBlow(answer, input, 0);
         assertEquals(expect, actual);
     }
 }
