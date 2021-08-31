@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ContentsTest {
+
+    //チュートリアルテキストの整合性テスト
     @Test
     void testReadText() {
         String description = """
@@ -31,47 +33,83 @@ class ContentsTest {
         assertEquals(description, resultDescription);
     }
 
-//    @Test
-//    void testGetHit() {
-//        //int testHit = 0;
-//        int hit = 0;
-//        int resultHit = Contents.checkHit(hit);
-//        assertEquals(testHit, resultHit);
-//    }
-
+    //ヒット数0テスト
     @Test
-    void testGetBlow0() {
-        int testBlow = 0;
+    void testGetHit0() {
+        int expect = 0;
+        int[] a = {0, 1, 2};
+        int[] b = {3, 4, 5};
+        int actual = Contents.getHit(a, b, 0);
+        assertEquals(expect, actual);
+    }
+
+    //ヒット数1テスト
+    @Test
+    void testGetHit1() {
+        int expect = 1;
+        int[] a = {0, 1, 2};
+        int[] b = {0, 3, 4};
+        int actual = Contents.getHit(a, b, 0);
+        assertEquals(expect, actual);
+    }
+
+    //ヒット数2テスト
+    @Test
+    void testGetHit2() {
+        int expect = 2;
+        int[] a = {0, 1, 2};
+        int[] b = {0, 1, 3};
+        int actual = Contents.getHit(a, b, 0);
+        assertEquals(expect, actual);
+    }
+
+    //ヒット数3テスト
+    @Test
+    void testGetHit3() {
+        int expect = 3;
         int[] a = {0, 1, 2};
         int[] b = {0, 1, 2};
-        int resultBlow = Contents.getBlow(a, b, 0);
-        assertEquals(testBlow, resultBlow);
+        int actual = Contents.getHit(a, b, 0);
+        assertEquals(expect, actual);
     }
 
+    //ブロー数0テスト
+    @Test
+    void testGetBlow0() {
+        int expect = 0;
+        int[] a = {0, 1, 2};
+        int[] b = {0, 1, 2};
+        int actual = Contents.getBlow(a, b, 0);
+        assertEquals(expect, actual);
+    }
+
+    //ブロー数1テスト
     @Test
     void testGetBlow1() {
-        int testBlow = 1;
+        int expect = 1;
         int[] a = {0, 1, 2};
         int[] b = {2, 3, 4};
-        int resultBlow = Contents.getBlow(a, b, 0);
-        assertEquals(testBlow, resultBlow);
+        int actual = Contents.getBlow(a, b, 0);
+        assertEquals(expect, actual);
     }
 
+    //ブロー数2テスト
     @Test
     void testGetBlow2() {
-        int testBlow = 2;
+        int expect = 2;
         int[] a = {0, 1, 2};
         int[] b = {1, 2, 3};
-        int resultBlow = Contents.getBlow(a, b, 0);
-        assertEquals(testBlow, resultBlow);
+        int actual = Contents.getBlow(a, b, 0);
+        assertEquals(expect, actual);
     }
 
+    //ブロー数3テスト
     @Test
     void testGetBlow3() {
-        int testBlow = 3;
+        int expect = 3;
         int[] a = {0, 1, 2};
         int[] b = {2, 0, 1};
-        int resultBlow = Contents.getBlow(a, b, 0);
-        assertEquals(testBlow, resultBlow);
+        int actual = Contents.getBlow(a, b, 0);
+        assertEquals(expect, actual);
     }
 }

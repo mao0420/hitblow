@@ -108,11 +108,7 @@ public class Contents {
         trial++;//試行回数を1増やす
         int hit = 0;//ヒットのカウンタ―初期化
         int blow = 0;//ブローのカウンタ―初期化
-        for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
-            if (prc[i] == ans[i]) {//入力数値と正解数値のそれぞれ違う桁同士を比較し、数値が同じ違う桁がある毎にblowが1加算される。
-                hit++;
-            }
-        }
+        hit = getHit(prc, ans, hit);//ヒット計算メソッドへ
         blow = getBlow(prc, ans, blow);//ブロー計算メソッドへ
         System.out.printf((Constants.HIT) + "%n", hit);//桁も数字も合っている数。
         System.out.printf((Constants.BLOW) + "%n", blow);//桁は合っていないが数字は合っている数、ヒットとの合計が3より上になる事は無い。
@@ -136,6 +132,16 @@ public class Contents {
         input(trial, ans, history, 0);//再度数値入力メソッドから繰り返す。その際ミスカウントをリセットする。
     }
 
+    //ヒット計算メソッド
+    public static int getHit(int[] prc, int[] ans, int hit) {
+        for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
+            if (prc[i] == ans[i]) {//入力数値と正解数値のそれぞれ違う桁同士を比較し、数値が同じ違う桁がある毎にblowが1加算される。
+                hit++;
+            }
+        }
+        return hit;
+    }
+
     //ブロー計算メソッド
     public static int getBlow(int[] prc, int[] ans, int blow) {
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
@@ -149,16 +155,6 @@ public class Contents {
         }
         return blow;
     }
-//
-//    //ヒット確認
-//    public static int checkHit(int hit){
-//        return hit;
-//    }
-//
-//    //ブロー確認
-//    public static int checkBlow(int blow){
-//        return blow;
-//    }
 
     //テキストファイル読み込みメソッド
     public static String readText(String filePath) {
