@@ -37,9 +37,9 @@ class ContentsTest {
     @Test
     void testGame() {
         int[] actual = Contents.game();
-        assertTrue(actual[0] != actual[1]);
-        assertTrue(actual[0] != actual[2]);
-        assertTrue(actual[1] != actual[2]);
+        assertNotEquals(actual[0], actual[1]);
+        assertNotEquals(actual[0], actual[2]);
+        assertNotEquals(actual[1], actual[2]);
         assertEquals(3, actual.length);
     }
 

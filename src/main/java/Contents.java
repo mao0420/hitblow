@@ -30,7 +30,11 @@ public class Contents {
         }
     }
 
-    //ルール説明メソッド
+    /**
+     *　ルール説明を表示するかを選択するメソッド
+     * @param ruleCount ミス入力カウント
+     * @return true:入力ミス時 false:正常入力時、または、入力ミスが規定回数を超えた際
+     */
     public static boolean rule(int ruleCount) {
         System.out.println(Constants.DESCRIPTION_CHOOSE);
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。2は特に処理が無い為そのままif文を通り過ぎる。
