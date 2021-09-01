@@ -62,7 +62,7 @@ public class Contents {
         //System.out.println(number);//シャッフル前リスト確認用
         Collections.shuffle(number);//リストに格納した0～9の数をシャッフルする。
         //System.out.println(number);//シャッフル後リスト確認用
-        for (int i = 0; i < correct.length; i++) {
+        for (int i = 0; i < correct.length; i++) {//シャッフルしたリストを正解の配列の要素数分格納する。
             correct[i] = number.get(i);
         }
         //System.out.println(Arrays.toString(correct));//確認用、この内容が正解の数値となる
