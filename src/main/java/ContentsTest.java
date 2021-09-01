@@ -36,11 +36,11 @@ class ContentsTest {
     //正解数値設定テスト
     @Test
     void testGame() {
-        int[] answer = {1, 2, 3};
-        int[] actual = Contents.game(answer);
+        int[] actual = Contents.game();
         assertTrue(actual[0] != actual[1]);
         assertTrue(actual[0] != actual[2]);
         assertTrue(actual[1] != actual[2]);
+        assertEquals(3, actual.length);
     }
 
     //ヒット数0テスト

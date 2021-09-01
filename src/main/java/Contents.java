@@ -12,7 +12,6 @@ public class Contents {
         while (retry) {
             int ruleCount = 0;//ルール説明のミスカウント初期化
             int missCount = 0;
-            int[] correct = new int[3];//Answer用の配列、3つの1桁数字を格納する。
             int trial = 0;//試行回数のカウンタ―初期化
             String[][] history = new String[10][4];//10回分の入力履歴の配列を初期化
             boolean ruleLoop = true;
@@ -22,7 +21,7 @@ public class Contents {
                 ruleLoop = rule(ruleCount);//ルール説明メソッドへ
             }
             if (ruleCount <= 4) {
-                int[] answer = game(correct);//ゲーム内容メソッドへ
+                int[] answer = game();//ゲーム内容メソッドへ
                 input(trial, answer, history, missCount);//数値入力メソッドへ
             }
             retry = end();//ゲーム終了メソッドへ
@@ -52,7 +51,8 @@ public class Contents {
     }
 
     //ゲーム内容メソッド
-    public static int[] game(int[] correct) {
+    public static int[] game() {
+        int[] correct = new int[3];//Answer用の配列、3つの1桁数字を格納する。
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
             correct[i] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
         }
