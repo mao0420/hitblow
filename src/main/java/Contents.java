@@ -1,5 +1,7 @@
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.text.Normalizer;
@@ -52,18 +54,18 @@ public class Contents {
 
     //ゲーム内容メソッド
     public static int[] game() {
-        int[] correct = new int[3];//Answer用の配列、3つの1桁数字を格納する。
-        for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
-            correct[i] = (int) Math.floor(Math.random() * 10);//各要素に乱数を10倍して少数以下を切り捨て、0～9までの数値となる。
+        int[] correct = new int[3];//正解の数値用の配列、3つの1桁数字を格納する。
+        ArrayList<Integer> number = new ArrayList<>();//0～9格納用のリストを作成
+        for (int i = 0; i <= 9; i++) {//0～9の数を1つずつリストに格納。
+            number.add(i);
         }
-        //System.out.println(Arrays.toString(correct));//＃確認用表示、3桁分の数字をランダムに設定、この時点で含まれる重複は以下で処理。
-        while (correct[0] == correct[1]) {//1つめと2つめの数字が重複した場合は違う数字になるまで2つめの数値のランダムを繰り返す。
-            correct[1] = (int) Math.floor(Math.random() * 10);
+        //System.out.println(number);//シャッフル前リスト確認用
+        Collections.shuffle(number);//リストに格納した0～9の数をシャッフルする。
+        //System.out.println(number);//シャッフル後リスト確認用
+        for (int i = 0; i < correct.length; i++) {
+            correct[i] = number.get(i);
         }
-        while (correct[0] == correct[2] || correct[1] == correct[2]) {//1つめと3つめ、2つめと3つめのどちらかが重複した場合は違う数字になるまで3つめの数値のランダムを繰り返す。
-            correct[2] = (int) Math.floor(Math.random() * 10);
-        }
-        //System.out.println(Arrays.toString(correct));//＃確認用表示、重複がある場合は再抽選で重複が無くなる。
+        //System.out.println(Arrays.toString(correct));//確認用、この内容が正解の数値となる
         return correct;
     }
 
