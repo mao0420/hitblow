@@ -36,7 +36,7 @@ class ContentsTest {
     //正解数値設定テスト
     @Test
     void testGame() {
-        int[] actual = Contents.game();
+        int[] actual = Contents.correctAnswerNumber();
         assertNotEquals(actual[0], actual[1]);
         assertNotEquals(actual[0], actual[2]);
         assertNotEquals(actual[1], actual[2]);
