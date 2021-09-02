@@ -1,12 +1,15 @@
 public class Constants {
-    public static final int ZERO = 0;
-    public static final String ONE = "1";
-    public static final String TWO = "2";
-    public static final int THREE = 3;
-    public static final int FOUR = 4;
-    public static final int FIVE = 5;
-    public static final int TEN = 10;
+    public static final int INT_ZERO = 0;
+    public static final int INT_ONE = 1;
+    public static final int INT_TWO = 2;
+    public static final int INT_THREE = 3;
+    public static final int INT_FOUR = 4;
+    public static final int INT_FIVE = 5;
+    public static final int INT_TEN = 10;
+    public static final String STRING_ONE = "1";
+    public static final String STRING_TWO = "2";
     public static final String G = "G";
+    public static final int DIGIT_NUMBER = 3;
     public static final String WELCOME = "ヒット&ブローへようこそ！\n";
     public static final String DESCRIPTION_CHOOSE = "ルール説明を表示しますか？次の選択肢から数字で入力してください。\n1.ルール説明を表示\n2.ルール説明をスキップ";
     public static final String START_MESSAGE = "それでは、ヒット&ブローを開始します。\n";
