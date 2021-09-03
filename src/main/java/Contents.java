@@ -17,19 +17,19 @@ public class Contents {
     public static void main(String[] args) {//mainメソッド
         boolean retryGame = true;
         while (retryGame) {
-            int ruleMissCount = Constants.INT_ZERO;//ルール説明のミスカウント初期化
-            int gameMissCount = Constants.INT_ZERO;
-            int tryTimes = Constants.INT_ZERO;//試行回数のカウンタ―初期化
+            int ruleDescriptionMissCount = Constants.RULE_MISS_COUNT_FORMAT;//ルール説明のミスカウント初期化
+            int numberEntryMissCount = Constants.NUMBER_ENTRY_MISS_COUNT_FORMAT;//数値入力のミスカウント初期化
+            int tryTimes = Constants.TRY_TIMES_COUNT_FORMAT;//試行回数のカウンタ―初期化
             String[][] inputHistory = new String[10][4];//10回分の入力履歴の配列を初期化
             boolean ruleLoop = false;
             System.out.println(Constants.WELCOME);
             while (!(ruleLoop)) {//trueになるまで繰り返す。
-                ruleMissCount++;//カウントを+1する。
-                ruleLoop = ruleDescription(ruleMissCount);//ルール説明メソッドへ
+                ruleDescriptionMissCount++;//カウントを+1する。
+                ruleLoop = ruleDescription(ruleDescriptionMissCount);//ルール説明メソッドへ
             }
-            if (Constants.INT_FOUR >= ruleMissCount) {
+            if (Constants.MISS_INPUT_ABNORMAL_END >= ruleDescriptionMissCount) {
                 int[] answer = correctAnswerNumber();//正解設定メソッドへ
-                numberEntry(tryTimes, answer, inputHistory, gameMissCount);//数値入力メソッドへ
+                numberEntry(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力メソッドへ
             }
             retryGame = gameEnd();//ゲーム終了メソッドへ
         }
@@ -46,13 +46,13 @@ public class Contents {
         String numberEntry = scan.nextLine();//入力フォーム。1または1,2以外で判定。2は特に処理が無い為そのままif文を通り過ぎる。
         numberEntry = numberEntry.replace(" ", "");//入力された内容からスペースを削除する。
         numberEntry = Normalizer.normalize(numberEntry, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
-        if (numberEntry.equals(Constants.STRING_ONE)) {//1が入力された場合、ルール説明を表示。
+        if (Constants.SELECTION_ONE.equals(numberEntry)) {//1が入力された場合、ルール説明を表示。
             System.out.println(readText("src/main/java/Description.txt"));
         }
-        if (!((numberEntry.equals(Constants.STRING_ONE)) || (numberEntry.equals(Constants.STRING_TWO)))) {//1か2以外はミス入力として処理。
+        if (!((Constants.SELECTION_ONE.equals(numberEntry)) || (Constants.SELECTION_TWO.equals(numberEntry)))) {//1か2以外はミス入力として処理。
             System.out.println(Constants.CHOOSE_ONE_OR_TWO);
             //System.out.println(ruleCount);//＃確認用ミスカウント表示。
-            if (Constants.INT_FIVE <= ruleCount) {
+            if (Constants.RULE_MISS_COUNT <= ruleCount) {
                 System.out.println(Constants.END_OF_WARNING);//ここから終了メソッドへ以降予定。
                 return true;
             }
@@ -61,8 +61,6 @@ public class Contents {
         System.out.println(Constants.START_MESSAGE);
         return true;
     }
-
-    //正解設定メソッド
 
     /**
      * ゲーム内で使用する正解の数値を設定するメソッド
@@ -86,37 +84,37 @@ public class Contents {
     }
 
     //数値入力メソッド
-    private static void numberEntry(int tryTimes, int[] answer, String[][] inputHistory, int gameMissCount) {
+    private static void numberEntry(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
         System.out.printf((Constants.INPUT_MESSAGE) + "%n", tryTimes);
-        String input = scan.nextLine();//入力フォーム。3桁の整数、G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
+        String input = scan.nextLine();//入力フォーム。3桁の整数、SELECTION_G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = input.toUpperCase();//小文字の英数字を大文字に変換。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
         //System.out.println(input);//＃確認用表示、入力された内容が変換されているかの確認。
-        if (Constants.G.equals(input)) {//ギブアップ選択時、ゲームオーバーメソッドに移行する。
+        if (Constants.SELECTION_G.equals(input)) {//ギブアップ選択時、ゲームオーバーメソッドに移行する。
             System.out.println(Constants.CHOOSE_GIVE_UP);
             gameOver(answer);//ゲームオーバーメソッドへ
             return;
         }
         int digit = input.length();
-        if (Constants.INT_THREE != digit) {//数値の長さが3以外の場合はミス入力として処理。
+        if (Constants.INPUT_NUMERIC_LENGTH != digit) {//数値の長さが3以外の場合はミス入力として処理。
             System.out.println(Constants.INPUT_THREE_DIGIT);
-            numberInputMiss(tryTimes, answer, inputHistory, gameMissCount);//数値入力ミスメソッドへ
+            numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;//ミス回数が5回以上の場合は数値入力ミスメソッドで再読み込みがされない為、ここでメソッドを終了し、終了メソッドへ移行する。
         }
-        if (!("^[0-9]{3}$".matches(input) || ("^G$".matches(input)))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
+        if (!("^[0-9]{3}$".matches(input) || ("^SELECTION_G$".matches(input)))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
             System.out.println(Constants.INPUT_THREE_DIGIT);
-            numberInputMiss(tryTimes, answer, inputHistory, gameMissCount);//数値入力ミスメソッドへ
+            numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;
         }
-        int[] inputArray = new int[3];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
+        int[] inputArray = new int[Constants.DIGITS_INPUT];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
         inputArray[0] = Integer.parseInt(input) / 100;//100の桁を取り出す、1/100を行い小数点切り捨て。
         inputArray[1] = Integer.parseInt(input) / 10 % 10;//10の桁を取り出す、1/10を行い、1/10の余りを取り出す。
         inputArray[2] = (int) Math.floor(Integer.parseInt(input) % 10);//1の桁を取り出す、1/10の余りを取り出す。
         //System.out.println(Arrays.toString(inputArray));//＃確認用表示、それぞれ格納した配列を表示。
         if (inputArray[0] == inputArray[1] || inputArray[0] == inputArray[2] || inputArray[1] == inputArray[2]) {//数値の重複確認、
             System.out.println(Constants.DUPLICATE_NUMBERS);
-            numberInputMiss(tryTimes, answer, inputHistory, gameMissCount);//数値入力ミスメソッドへ
+            numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;
         }
         judge(inputArray, answer, inputHistory, tryTimes, input);//判定メソッドへ
@@ -125,17 +123,17 @@ public class Contents {
     //判定メソッド
     private static void judge(int[] inputArray, int[] answer, String[][] inputHistory, int tryTimes, String input) {
         tryTimes++;//試行回数を1増やす
-        int hitCounter = Constants.INT_ZERO;//ヒットのカウンタ―初期化
-        int blowCounter = Constants.INT_ZERO;//ブローのカウンタ―初期化
+        int hitCounter = Constants.HIT_COUNT_FORMAT;//ヒットのカウンタ―初期化
+        int blowCounter = Constants.BLOW_COUNT_FORMAT;//ブローのカウンタ―初期化
         hitCounter = getHit(inputArray, answer, hitCounter);//ヒット計算メソッドへ
         blowCounter = getBlow(inputArray, answer, blowCounter);//ブロー計算メソッドへ
         System.out.printf((Constants.HIT) + "%n", hitCounter);//桁も数字も合っている数。
         System.out.printf((Constants.BLOW) + "%n", blowCounter);//桁は合っていないが数字は合っている数、ヒットとの合計が3より上になる事は無い。
-        if (Constants.INT_THREE == hitCounter) {//hitが3桁全てである場合はゲームクリアとする。
+        if (Constants.HIT_ANSWER_NUMBER == hitCounter) {//hitが3桁全てである場合はゲームクリアとする。
             gameClear(answer, tryTimes);//ゲームクリアメソッドへ
             return;
         }
-        if (Constants.INT_TEN == tryTimes) {//試行回数が10回目でゲームクリアに到達できない場合はゲームオーバーとする。
+        if (Constants.GAME_OVER_LIMIT == tryTimes) {//試行回数が10回目でゲームクリアに到達できない場合はゲームオーバーとする。
             System.out.println(Constants.NUMBER_FIND_FAILURE);
             gameOver(answer);//ゲームオーバーメソッドへ
             return;
@@ -148,7 +146,7 @@ public class Contents {
         for (int k = 0; k < tryTimes; k++) {
             System.out.printf((Constants.LOG) + "%n", inputHistory[k][0], inputHistory[k][1], inputHistory[k][2], inputHistory[k][3]);
         }
-        numberEntry(tryTimes, answer, inputHistory, Constants.INT_ZERO);//再度数値入力メソッドから繰り返す。その際ミスカウントをリセットする。
+        numberEntry(tryTimes, answer, inputHistory, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);//再度数値入力メソッドから繰り返す。その際ミスカウントをリセットする。
     }
 
     //ヒット計算メソッド
@@ -190,14 +188,14 @@ public class Contents {
     }
 
     //数値入力ミスメソッド
-    private static void numberInputMiss(int tryTimes, int[] answer, String[][] inputHistory, int gameMissCount) {
-        gameMissCount++;//カウントを+1する。
+    private static void numberInputMiss(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
+        numberEntryMissCount++;//カウントを+1する。
         //System.out.println(missCount);//＃確認用ミスカウント表示。
-        if (Constants.INT_FIVE <= gameMissCount) {
+        if (Constants.NUMBER_ENTRY_MISS_COUNT <= numberEntryMissCount) {
             System.out.println(Constants.END_OF_WARNING);//＃確認用表示、ここから終了メソッドへ以降予定。
             return;
         }
-        numberEntry(tryTimes, answer, inputHistory, gameMissCount);
+        numberEntry(tryTimes, answer, inputHistory, numberEntryMissCount);
     }
 
     //ゲームクリアメソッド
@@ -216,11 +214,11 @@ public class Contents {
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。
         input = input.replace(" ", "");//入力された内容からスペースを削除する。
         input = Normalizer.normalize(input, Normalizer.Form.NFKC);//全角英数字を半角英数字に変換。
-        if (input.equals(Constants.STRING_ONE)) {//1が入力された場合、再度メインメソッドを読み込む。
+        if (input.equals(Constants.SELECTION_ONE)) {//1が入力された場合、再度メインメソッドを読み込む。
             System.out.println(Constants.GAME_RETRY);
             return true;
         }
-        if (input.equals(Constants.STRING_TWO)) {//2が入力された場合、プログラムを終了する。
+        if (input.equals(Constants.SELECTION_TWO)) {//2が入力された場合、プログラムを終了する。
             System.out.println(Constants.GAME_END);
         } else {//1か2以外はミス入力としてエラーメッセ―ジを挟み、2と同様にプログラムを終了する。
             System.out.println(Constants.END_OF_WARNING_2);
