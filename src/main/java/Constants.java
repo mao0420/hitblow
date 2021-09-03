@@ -9,7 +9,6 @@ public class Constants {
     public static final int NUMBER_ENTRY_MISS_COUNT = 5;
     public static final int TRY_TIMES_COUNT_FORMAT = 0;
     public static final int DIGIT_NUMBER = 3;
-    public static final int DIGITS_INPUT = 3;
     public static final int INPUT_NUMERIC_LENGTH = 3;
     public static final int HIT_COUNT_FORMAT = 0;
     public static final int BLOW_COUNT_FORMAT = 0;

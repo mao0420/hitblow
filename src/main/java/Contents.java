@@ -83,7 +83,14 @@ public class Contents {
         return correct;
     }
 
-    //数値入力メソッド
+    /**
+     * 数値を入力し、数値の内容に整合性があるかをチェックするメソッド
+     *
+     * @param tryTimes             現在が何回目の入力か
+     * @param answer               正解の数値
+     * @param inputHistory         入力履歴
+     * @param numberEntryMissCount ミス入力回数カウンタ
+     */
     private static void numberEntry(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
         System.out.printf((Constants.INPUT_MESSAGE) + "%n", tryTimes);
         String input = scan.nextLine();//入力フォーム。3桁の整数、SELECTION_G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
@@ -107,7 +114,7 @@ public class Contents {
             numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;
         }
-        int[] inputArray = new int[Constants.DIGITS_INPUT];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
+        int[] inputArray = new int[Constants.DIGIT_NUMBER];//入力の配列、入力した3桁の数字を1桁ずつに分けて入れる。
         inputArray[0] = Integer.parseInt(input) / 100;//100の桁を取り出す、1/100を行い小数点切り捨て。
         inputArray[1] = Integer.parseInt(input) / 10 % 10;//10の桁を取り出す、1/10を行い、1/10の余りを取り出す。
         inputArray[2] = (int) Math.floor(Integer.parseInt(input) % 10);//1の桁を取り出す、1/10の余りを取り出す。
@@ -117,11 +124,19 @@ public class Contents {
             numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;
         }
-        judge(inputArray, answer, inputHistory, tryTimes, input);//判定メソッドへ
+        judge(tryTimes, inputArray, answer, inputHistory, input);//判定メソッドへ
     }
 
-    //判定メソッド
-    private static void judge(int[] inputArray, int[] answer, String[][] inputHistory, int tryTimes, String input) {
+    /**
+     * 入力された数値と正解の数値を比較し、一致しているか処理を行い、入力履歴に格納するメソッド
+     *
+     * @param tryTimes     現在が何回目の入力か
+     * @param inputArray   入力された数値の配列
+     * @param answer       正解の数値
+     * @param inputHistory 入力履歴
+     * @param input        入力された数値
+     */
+    private static void judge(int tryTimes, int[] inputArray, int[] answer, String[][] inputHistory, String input) {
         tryTimes++;//試行回数を1増やす
         int hitCounter = Constants.HIT_COUNT_FORMAT;//ヒットのカウンタ―初期化
         int blowCounter = Constants.BLOW_COUNT_FORMAT;//ブローのカウンタ―初期化
@@ -150,6 +165,15 @@ public class Contents {
     }
 
     //ヒット計算メソッド
+
+    /**
+     * 入力された数値と正解の数値を比較し、ヒットの数を出すメソッド
+     *
+     * @param inputArray 　入力された数値の配列
+     * @param answer     　正解の数値
+     * @param hitCounter 　ヒット数
+     * @return ヒット数を返す
+     */
     public static int getHit(int[] inputArray, int[] answer, int hitCounter) {
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
             if (inputArray[i] == answer[i]) {//入力数値と正解数値のそれぞれ違う桁同士を比較し、数値が同じ違う桁がある毎にblowが1加算される。
@@ -159,7 +183,14 @@ public class Contents {
         return hitCounter;
     }
 
-    //ブロー計算メソッド
+    /**
+     * 入力された数値と正解の数値を比較し、ブローの数を出すメソッド
+     *
+     * @param inputArray  入力された数値の配列
+     * @param answer      正解の数値
+     * @param blowCounter ブロー数
+     * @return ブロー数を返す
+     */
     public static int getBlow(int[] inputArray, int[] answer, int blowCounter) {
         for (int i = 0; i < 3; i++) {//iが3に到達した時ループから脱出する。
             for (int j = 0; j < 3; j++) {//jが3に到達した時ループから脱出し、iのカウンターを増やし再度カウントし直す。
@@ -173,7 +204,12 @@ public class Contents {
         return blowCounter;
     }
 
-    //テキストファイル読み込みメソッド
+    /**
+     * テキストファイルを読み込むメソッド
+     *
+     * @param filePath テキストファイルのファイルパス
+     * @return 読み込んだテキストファイルの内容を返す
+     */
     public static String readText(String filePath) {
         StringBuilder stringBuilder = new StringBuilder();
         try (FileReader fileReader = new FileReader(filePath)) {
@@ -187,7 +223,14 @@ public class Contents {
         return stringBuilder.toString();
     }
 
-    //数値入力ミスメソッド
+    /**
+     * 入力ミス時にカウントを増やし、カウントが5以上の場合はゲームを終了させるメソッド
+     *
+     * @param tryTimes             現在が何回目の入力か
+     * @param answer               正解の数値
+     * @param inputHistory         入力履歴
+     * @param numberEntryMissCount ミス入力回数カウンタ
+     */
     private static void numberInputMiss(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
         numberEntryMissCount++;//カウントを+1する。
         //System.out.println(missCount);//＃確認用ミスカウント表示。
@@ -198,17 +241,30 @@ public class Contents {
         numberEntry(tryTimes, answer, inputHistory, numberEntryMissCount);
     }
 
-    //ゲームクリアメソッド
+    /**
+     * ゲームクリア時の文章を表示するメソッド
+     *
+     * @param answer       正解の数値
+     * @param inputHistory 入力履歴
+     */
     private static void gameClear(int[] answer, int inputHistory) {
         System.out.printf((Constants.GAME_CLEAR), Arrays.toString(answer), inputHistory);
     }
 
-    //ゲームオーバーメソッド
+    /**
+     * ゲーム失敗時の文章を表示するメソッド
+     *
+     * @param answer 正解の数値
+     */
     private static void gameOver(int[] answer) {
         System.out.printf((Constants.GAME_OVER), Arrays.toString(answer));
     }
 
-    //ゲーム終了メソッド
+    /**
+     * ゲーム終了時にゲームをやり直すか確認するメソッド
+     *
+     * @return true:リトライ選択時 false:ゲーム終了選択時、入力ミス時
+     */
     private static boolean gameEnd() {
         System.out.println(Constants.CHOOSE_RETRY);
         String input = scan.nextLine();//入力フォーム。1または1,2以外で判定。
