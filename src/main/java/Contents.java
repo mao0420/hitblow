@@ -109,7 +109,7 @@ public class Contents {
             numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;//ミス回数が5回以上の場合は数値入力ミスメソッドで再読み込みがされない為、ここでメソッドを終了し、終了メソッドへ移行する。
         }
-        if (!("^[0-9]{3}$".matches(input) || ("^SELECTION_G$".matches(input)))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
+        if (("^[0-9]{3}$".matches(input) || ("^G$".matches(input)))) {//数値0~9の3桁、Gの1桁以外の入力を弾く
             System.out.println(Constants.INPUT_THREE_DIGIT);
             numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);//数値入力ミスメソッドへ
             return;

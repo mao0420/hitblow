@@ -20,7 +20,7 @@ public class Constants {
     public static final String START_MESSAGE = "それでは、ヒット&ブローを開始します。\n";
     public static final String CHOOSE_ONE_OR_TWO = "1か2で入力してください。";
     public static final String END_OF_WARNING = "入力ミスが連続した為、ゲームを終了します。\n";
-    public static final String INPUT_MESSAGE = "現在までの入力回数:%d回\n「3桁の数字」を「重複無し」で入力してください。\nギブアップする際は\"SELECTION_G\"を入力してください。\n";
+    public static final String INPUT_MESSAGE = "現在までの入力回数:%d回\n「3桁の数字」を「重複無し」で入力してください。\nギブアップする際は\"G\"を入力してください。\n";
     public static final String CHOOSE_GIVE_UP = "ギブアップが選択されました。";
     public static final String INPUT_THREE_DIGIT = "3桁の数字で入力してください。";
     public static final String DUPLICATE_NUMBERS = "数字に重複があります、1つの回答内で同じ数字は使えません。";
