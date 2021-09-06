@@ -49,7 +49,7 @@ class ContentsTest {
         int expect = Constants.TEST_HIT_ZERO;
         int[] answer = {0, 1, 2};
         int[] input = {3, 4, 5};
-        int actual = Contents.getHit(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -59,7 +59,7 @@ class ContentsTest {
         int expect = Constants.TEST_HIT_ONE;
         int[] answer = {0, 1, 2};
         int[] input = {0, 3, 4};
-        int actual = Contents.getHit(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -69,7 +69,7 @@ class ContentsTest {
         int expect = Constants.TEST_HIT_TWO;
         int[] answer = {0, 1, 2};
         int[] input = {0, 1, 3};
-        int actual = Contents.getHit(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -79,7 +79,7 @@ class ContentsTest {
         int expect = Constants.TEST_HIT_THREE;
         int[] answer = {0, 1, 2};
         int[] input = {0, 1, 2};
-        int actual = Contents.getHit(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -89,7 +89,7 @@ class ContentsTest {
         int expect = Constants.TEST_BLOW_ZERO;
         int[] answer = {0, 1, 2};
         int[] input = {0, 1, 2};
-        int actual = Contents.getBlow(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -99,7 +99,7 @@ class ContentsTest {
         int expect = Constants.TEST_BLOW_ONE;
         int[] answer = {0, 1, 2};
         int[] input = {2, 3, 4};
-        int actual = Contents.getBlow(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -109,7 +109,7 @@ class ContentsTest {
         int expect = Constants.TEST_BLOW_TWO;
         int[] answer = {0, 1, 2};
         int[] input = {1, 2, 3};
-        int actual = Contents.getBlow(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 
@@ -119,7 +119,7 @@ class ContentsTest {
         int expect = Constants.TEST_BLOW_THREE;
         int[] answer = {0, 1, 2};
         int[] input = {2, 0, 1};
-        int actual = Contents.getBlow(answer, input, Constants.NUMBER_ENTRY_MISS_COUNT_RESET);
+        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
         assertEquals(expect, actual);
     }
 }
