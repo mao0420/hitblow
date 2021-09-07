@@ -10,7 +10,8 @@ public class Contents {
     static Scanner scan = new Scanner(System.in);
 
     /**
-     * mainメソッド、ここから他のメソッドを実行
+     * メインメソッド
+     * メインのメソッド、ここから他のメソッドを実行
      *
      * @param args mainメソッド実行用の引数
      */
@@ -46,6 +47,7 @@ public class Contents {
     }
 
     /**
+     * ルール説明メソッド
      * ルール説明を表示するかを選択するメソッド
      *
      * @param ruleCount ミス入力カウント
@@ -60,7 +62,7 @@ public class Contents {
         //全角英数字を半角英数字に変換。
         numberEntry = Normalizer.normalize(numberEntry, Normalizer.Form.NFKC);
         if (Constants.SELECTION_ONE.equals(numberEntry)) {
-            //1が入力された場合、ルール説明を表示。
+            //1が入力された場合、テキスト読み込みメソッドへ移行し、ルール説明のテキストファイルの内容を表示。
             System.out.println(readText("src/main/java/Description.txt"));
         }
         if (!((Constants.SELECTION_ONE.equals(numberEntry)) || (Constants.SELECTION_TWO.equals(numberEntry)))) {
@@ -81,6 +83,7 @@ public class Contents {
     }
 
     /**
+     * 正解設定メソッド
      * ゲーム内で使用する正解の数値を設定するメソッド
      *
      * @return 正解の数値を返す
@@ -110,6 +113,7 @@ public class Contents {
     }
 
     /**
+     * 数値入力メソッド
      * 数値を入力し、数値の内容に整合性があるかをチェックするメソッド
      *
      * @param tryTimes             現在が何回目の入力か
@@ -173,6 +177,7 @@ public class Contents {
     }
 
     /**
+     * 判定メソッド
      * 入力された数値と正解の数値を比較し、一致しているか処理を行い、入力履歴に格納するメソッド
      *
      * @param tryTimes     現在が何回目の入力か
@@ -222,6 +227,7 @@ public class Contents {
     }
 
     /**
+     * ヒット計算メソッド
      * 入力された数値と正解の数値を比較し、ヒットの数を出すメソッド
      *
      * @param inputArray 　入力された数値の配列
@@ -241,6 +247,7 @@ public class Contents {
     }
 
     /**
+     * ブロー計算メソッド
      * 入力された数値と正解の数値を比較し、ブローの数を出すメソッド
      *
      * @param inputArray  入力された数値の配列
@@ -266,6 +273,7 @@ public class Contents {
     }
 
     /**
+     * テキスト読み込みメソッド
      * テキストファイルを読み込むメソッド
      *
      * @param filePath テキストファイルのファイルパス
@@ -285,7 +293,8 @@ public class Contents {
     }
 
     /**
-     * 入力ミス時にカウントを増やし、カウントが5以上の場合はゲームを終了させるメソッド
+     * 数値入力ミスメソッド
+     * 入力ミス時にカウントを増やし、カウントが5以上の際にゲームを終了させるメソッド
      *
      * @param tryTimes             現在が何回目の入力か
      * @param answer               正解の数値
@@ -306,6 +315,7 @@ public class Contents {
     }
 
     /**
+     * ゲームクリアメソッド
      * ゲームクリア時の文章を表示するメソッド
      *
      * @param answer       正解の数値
@@ -316,6 +326,7 @@ public class Contents {
     }
 
     /**
+     * ゲームオーバーメソッド
      * ゲーム失敗時の文章を表示するメソッド
      *
      * @param answer 正解の数値
@@ -325,6 +336,7 @@ public class Contents {
     }
 
     /**
+     * ゲーム終了メソッド
      * ゲーム終了時にゲームをやり直すか確認するメソッド
      *
      * @return true:リトライ選択時 false:ゲーム終了選択時、入力ミス時
