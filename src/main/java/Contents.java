@@ -254,8 +254,8 @@ public class Contents {
             }
         }
         //ヒットの数値を格納
-        hitBlowCounter[0] = hitCounter;
-        hitBlowCounter[1] = blowCounter;
+        hitBlowCounter[Constants.CONSTANT_ARRAY_HIT_COUNTER] = hitCounter;
+        hitBlowCounter[Constants.CONSTANT_ARRAY_BLOW_COUNTER] = blowCounter;
         return hitBlowCounter;
     }
 
