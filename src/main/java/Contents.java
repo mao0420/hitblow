@@ -187,15 +187,17 @@ public class Contents {
      * @param input        入力された数値
      */
     private static void judge(int tryTimes, int[] inputArray, int[] answer, String[][] inputHistory, String input) {
+        //試行回数を履歴用変数に保存
+        int temporaryInputTimes = tryTimes;
         //試行回数を1増やす
         tryTimes++;
         //ヒットブロー計算メソッドへ
-        int[] hitBlowCounter = getBlow(inputArray, answer);
+        int[] hitBlowCounter = getHitBlow(inputArray, answer);
         //桁も数字も合っている数。
-        System.out.printf((Constants.MESSAGE_HIT) + "%n", hitBlowCounter[0]);
+        System.out.printf((Constants.MESSAGE_HIT) + "%n", hitBlowCounter[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
         //桁は合っていないが数字は合っている数、ヒットとの合計が3より上になる事は無い。
-        System.out.printf((Constants.MESSAGE_BLOW) + "%n", hitBlowCounter[1]);
-        if (Constants.CONSTANT_HIT_ANSWER_NUMBER == hitBlowCounter[0]) {
+        System.out.printf((Constants.MESSAGE_BLOW) + "%n", hitBlowCounter[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
+        if (Constants.CONSTANT_HIT_ANSWER_NUMBER == hitBlowCounter[Constants.CONSTANT_ARRAY_HIT_COUNTER]) {
             //hitが3桁全てである場合はゲームクリアとする。
             //ゲームクリアメッセージを表示
             System.out.printf((Constants.MESSAGE_GAME_CLEAR), Arrays.toString(answer), tryTimes);
@@ -207,10 +209,10 @@ public class Contents {
             System.out.printf(Constants.MESSAGE_GAME_OVER, Arrays.toString(answer));
             return;
         }
-        inputHistory[tryTimes - 1][0] = String.valueOf(tryTimes);
-        inputHistory[tryTimes - 1][1] = input;
-        inputHistory[tryTimes - 1][2] = String.valueOf(hitBlowCounter[0]);
-        inputHistory[tryTimes - 1][3] = String.valueOf(hitBlowCounter[1]);
+        inputHistory[temporaryInputTimes][0] = String.valueOf(tryTimes);
+        inputHistory[temporaryInputTimes][1] = input;
+        inputHistory[temporaryInputTimes][2] = String.valueOf(hitBlowCounter[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
+        inputHistory[temporaryInputTimes][3] = String.valueOf(hitBlowCounter[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
         System.out.println(Constants.MESSAGE_LOG_HEADER);
         for (int k = 0; k < tryTimes; k++) {
             System.out.printf((Constants.MESSAGE_LOG) + "%n", inputHistory[k][0], inputHistory[k][1], inputHistory[k][2], inputHistory[k][3]);
@@ -227,7 +229,7 @@ public class Contents {
      * @param answer     正解の数値
      * @return ブロー数を返す
      */
-    public static int[] getBlow(int[] inputArray, int[] answer) {
+    public static int[] getHitBlow(int[] inputArray, int[] answer) {
         //ヒットのカウンタ初期化
         int hitCounter = Constants.CONSTANT_HIT_COUNT_FORMAT;
         //ブローのカウンタ初期化
@@ -272,7 +274,7 @@ public class Contents {
                 stringBuilder.append((char) lineText);
             }
         } catch (IOException e) {
-            System.out.println("ルール説明の読み込みに失敗しました。");
+            System.out.println(Constants.ERROR_FILE_LOADING_FAILURE);
         }
         return stringBuilder.toString();
     }

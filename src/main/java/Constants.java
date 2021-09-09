@@ -12,6 +12,8 @@ public class Constants {
     public static final int CONSTANT_INPUT_NUMERIC_LENGTH = 3;
     public static final int CONSTANT_HIT_COUNT_FORMAT = 0;
     public static final int CONSTANT_BLOW_COUNT_FORMAT = 0;
+    public static final int CONSTANT_ARRAY_HIT_COUNTER = 0;
+    public static final int CONSTANT_ARRAY_BLOW_COUNTER = 1;
     public static final int CONSTANT_HIT_ANSWER_NUMBER = 3;
     public static final int CONSTANT_MISS_INPUT_ABNORMAL_END = 4;
     public static final int CONSTANT_GAME_OVER_LIMIT = 10;
@@ -21,6 +23,7 @@ public class Constants {
             %s.ルール説明を表示
             %s.ルール説明をスキップ
             """;
+    public static final String ERROR_FILE_LOADING_FAILURE = "ルール説明の読み込みに失敗しました。";
     public static final String MESSAGE_START_MESSAGE = "それでは、ヒット&ブローを開始します。\n";
     public static final String ERROR_CHOOSE_ONE_OR_TWO = SELECTION_ONE + "か" + SELECTION_TWO + "で入力してください。";
     public static final String ERROR_END_OF_WARNING = "入力ミスが連続した為、ゲームを終了します。\n";
