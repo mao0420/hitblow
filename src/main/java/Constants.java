@@ -61,12 +61,12 @@ public class Constants {
     public static final String MESSAGE_GAME_END = "ゲームを終了します。";
     public static final String ERROR_END_OF_WARNING_2 = "選択肢以外の入力がされている為、ゲームを終了します。";
     public static final int TEST_ELEMENT_DIGITS = 3;
-//    public static final int TEST_HIT_ZERO = 0;
-//    public static final int TEST_HIT_ONE = 1;
-//    public static final int TEST_HIT_TWO = 2;
-//    public static final int TEST_HIT_THREE = 3;
-//    public static final int TEST_BLOW_ZERO = 0;
-//    public static final int TEST_BLOW_ONE = 1;
-//    public static final int TEST_BLOW_TWO = 2;
-//    public static final int TEST_BLOW_THREE = 3;
+    public static final int TEST_HIT_ZERO = 0;
+    public static final int TEST_HIT_ONE = 1;
+    public static final int TEST_HIT_TWO = 2;
+    public static final int TEST_HIT_THREE = 3;
+    public static final int TEST_BLOW_ZERO = 0;
+    public static final int TEST_BLOW_ONE = 1;
+    public static final int TEST_BLOW_TWO = 2;
+    public static final int TEST_BLOW_THREE = 3;
 }

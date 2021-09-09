@@ -43,83 +43,83 @@ class ContentsTest {
         assertEquals(Constants.TEST_ELEMENT_DIGITS, actual.length);
     }
 
-//    //ヒット数0テスト
-//    @Test
-//    void testGetHit0() {
-//        int expect = Constants.TEST_HIT_ZERO;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {3, 4, 5};
-//        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ヒット数1テスト
-//    @Test
-//    void testGetHit1() {
-//        int expect = Constants.TEST_HIT_ONE;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {0, 3, 4};
-//        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ヒット数2テスト
-//    @Test
-//    void testGetHit2() {
-//        int expect = Constants.TEST_HIT_TWO;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {0, 1, 3};
-//        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ヒット数3テスト
-//    @Test
-//    void testGetHit3() {
-//        int expect = Constants.TEST_HIT_THREE;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {0, 1, 2};
-//        int actual = Contents.getHit(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ブロー数0テスト
-//    @Test
-//    void testGetBlow0() {
-//        int expect = Constants.TEST_BLOW_ZERO;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {0, 1, 2};
-//        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ブロー数1テスト
-//    @Test
-//    void testGetBlow1() {
-//        int expect = Constants.TEST_BLOW_ONE;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {2, 3, 4};
-//        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ブロー数2テスト
-//    @Test
-//    void testGetBlow2() {
-//        int expect = Constants.TEST_BLOW_TWO;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {1, 2, 3};
-//        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
-//
-//    //ブロー数3テスト
-//    @Test
-//    void testGetBlow3() {
-//        int expect = Constants.TEST_BLOW_THREE;
-//        int[] answer = {0, 1, 2};
-//        int[] input = {2, 0, 1};
-//        int actual = Contents.getBlow(answer, input, Constants.CONSTANT_NUMBER_ENTRY_MISS_COUNT_RESET);
-//        assertEquals(expect, actual);
-//    }
+    //ヒット数0テスト
+    @Test
+    void testGetHit0() {
+        int expect = Constants.TEST_HIT_ZERO;
+        int[] answer = {0, 1, 2};
+        int[] input = {3, 4, 5};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[0]);
+    }
+
+    //ヒット数1テスト
+    @Test
+    void testGetHit1() {
+        int expect = Constants.TEST_HIT_ONE;
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 3, 4};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[0]);
+    }
+
+    //ヒット数2テスト
+    @Test
+    void testGetHit2() {
+        int expect = Constants.TEST_HIT_TWO;
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 3};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[0]);
+    }
+
+    //ヒット数3テスト
+    @Test
+    void testGetHit3() {
+        int expect = Constants.TEST_HIT_THREE;
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 2};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[0]);
+    }
+
+    //ブロー数0テスト
+    @Test
+    void testGetBlow0() {
+        int expect = Constants.TEST_BLOW_ZERO;
+        int[] answer = {0, 1, 2};
+        int[] input = {0, 1, 2};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[1]);
+    }
+
+    //ブロー数1テスト
+    @Test
+    void testGetBlow1() {
+        int expect = Constants.TEST_BLOW_ONE;
+        int[] answer = {0, 1, 2};
+        int[] input = {2, 3, 4};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[1]);
+    }
+
+    //ブロー数2テスト
+    @Test
+    void testGetBlow2() {
+        int expect = Constants.TEST_BLOW_TWO;
+        int[] answer = {0, 1, 2};
+        int[] input = {1, 2, 3};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[1]);
+    }
+
+    //ブロー数3テスト
+    @Test
+    void testGetBlow3() {
+        int expect = Constants.TEST_BLOW_THREE;
+        int[] answer = {0, 1, 2};
+        int[] input = {2, 0, 1};
+        int[] actual = Contents.getHitBlow(answer, input);
+        assertEquals(expect, actual[1]);
+    }
 }
