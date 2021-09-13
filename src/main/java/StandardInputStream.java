@@ -6,9 +6,10 @@ public class StandardInputStream extends InputStream {
 
     /**
      * 文字列を入力する。改行は自動的に行う
+     *
      * @param str 入力文字列
      */
-    public void inputln(String str){
+    public void inputln(String str) {
         sb.append(str).append(lf);
     }
 
