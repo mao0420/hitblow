@@ -1,8 +1,39 @@
+import org.hamcrest.MatcherAssert;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ContentsTest {
+
+    private final StandardInputStream in = new StandardInputStream();
+    private final StandardOutputStream out = new StandardOutputStream();
+
+    @Before
+    public void before() {
+        System.setIn(in);
+        System.setOut(out);
+    }
+
+    @After
+    public void after() {
+        System.setIn(null);
+        System.setOut(null);
+    }
+
+//    //メインメソッド
+//    @Test
+//    void testMain() {
+//        boolean expect = true;
+//        Contents.main(new String[]{});
+//    }
+//    //ルール説明メソッド
+//    @Test
+//    void testRuleDescription() {
+//
+//    }
 
     //チュートリアルテキストの整合性テスト
     @Test
@@ -43,7 +74,18 @@ class ContentsTest {
         assertEquals(Constants.TEST_ELEMENT_DIGITS, actual.length);
     }
 
-    //ヒット数0テスト
+    //    //数値入力メソッド
+//    @Test
+//    void testNumberEntry(){
+//
+//    }
+//    //判定メソッド
+//    @Test
+//    void testJudge() {
+//
+//    }
+
+    //ヒットブロー計算メソッド ヒット数0テスト
     @Test
     void testGetHitBlowHit0() {
         int expect = Constants.TEST_HIT_ZERO;
@@ -53,7 +95,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
     }
 
-    //ヒット数1テスト
+    //ヒットブロー計算メソッド ヒット数1テスト
     @Test
     void testGetHitBlowHit1() {
         int expect = Constants.TEST_HIT_ONE;
@@ -63,7 +105,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
     }
 
-    //ヒット数2テスト
+    //ヒットブロー計算メソッド ヒット数2テスト
     @Test
     void testGetHitBlowHit2() {
         int expect = Constants.TEST_HIT_TWO;
@@ -73,7 +115,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
     }
 
-    //ヒット数3テスト
+    //ヒットブロー計算メソッド ヒット数3テスト
     @Test
     void testGetHitBlowHit3() {
         int expect = Constants.TEST_HIT_THREE;
@@ -83,7 +125,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_HIT_COUNTER]);
     }
 
-    //ブロー数0テスト
+    //ヒットブロー計算メソッド ブロー数0テスト
     @Test
     void testGetHitBlowBlow0() {
         int expect = Constants.TEST_BLOW_ZERO;
@@ -93,7 +135,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
     }
 
-    //ブロー数1テスト
+    //ヒットブロー計算メソッド ブロー数1テスト
     @Test
     void testGetHitBlowBlow1() {
         int expect = Constants.TEST_BLOW_ONE;
@@ -103,7 +145,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
     }
 
-    //ブロー数2テスト
+    //ヒットブロー計算メソッド ブロー数2テスト
     @Test
     void testGetHitBlowBlow2() {
         int expect = Constants.TEST_BLOW_TWO;
@@ -113,7 +155,7 @@ class ContentsTest {
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
     }
 
-    //ブロー数3テスト
+    //ヒットブロー計算メソッド ブロー数3テスト
     @Test
     void testGetHitBlowBlow3() {
         int expect = Constants.TEST_BLOW_THREE;
@@ -121,5 +163,46 @@ class ContentsTest {
         int[] input = {2, 0, 1};
         int[] actual = Contents.getHitBlow(answer, input);
         assertEquals(expect, actual[Constants.CONSTANT_ARRAY_BLOW_COUNTER]);
+    }
+
+    //数値入力判定ミスメソッド
+    @Test
+    void testNumberInputMiss() {
+        String[][] array = {{"0"}, {"0"}};
+
+        System.setIn(in);
+        System.setOut(out);
+
+        Contents.numberInputMiss(0, new int[]{0}, array, 4);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_END_OF_WARNING));
+    }
+
+    //ゲーム終了メソッド 終了時テスト
+    @Test
+    void testGameEndEnd() {
+        System.setIn(in);
+        in.inputln("2");
+        System.setOut(out);
+        Contents.gameEnd();
+        testGameEndReadLine();
+        MatcherAssert.assertThat(out.readLine(), is(Constants.MESSAGE_GAME_END));
+    }
+
+    //ゲーム終了メソッド 異常入力終了時テスト
+    @Test
+    void testGameEndWarning() {
+        System.setIn(in);
+        in.inputln("3");
+        System.setOut(out);
+        Contents.gameEnd();
+        testGameEndReadLine();
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_END_OF_WARNING_2));
+    }
+
+    //ゲーム終了メソッド 3行飛ばす
+    void testGameEndReadLine() {
+        for (int i = 0; i < 3; i++) {
+            out.readLine();
+        }
     }
 }

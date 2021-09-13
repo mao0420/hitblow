@@ -26,7 +26,7 @@ public class Constants {
     public static final String ERROR_FILE_LOADING_FAILURE = "ルール説明の読み込みに失敗しました。";
     public static final String MESSAGE_START_MESSAGE = "それでは、ヒット&ブローを開始します。\n";
     public static final String ERROR_CHOOSE_ONE_OR_TWO = SELECTION_ONE + "か" + SELECTION_TWO + "で入力してください。";
-    public static final String ERROR_END_OF_WARNING = "入力ミスが連続した為、ゲームを終了します。\n";
+    public static final String ERROR_END_OF_WARNING = "入力ミスが連続した為、ゲームを終了します。";
     public static final String MESSAGE_INPUT_MESSAGE = """
             現在までの入力回数:%d回
                 

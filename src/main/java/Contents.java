@@ -288,7 +288,7 @@ public class Contents {
      * @param inputHistory         入力履歴
      * @param numberEntryMissCount ミス入力回数カウンタ
      */
-    private static void numberInputMiss(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
+    public static void numberInputMiss(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
         //カウントを+1する。
         numberEntryMissCount++;
         //＃確認用ミスカウント表示。
@@ -307,7 +307,7 @@ public class Contents {
      *
      * @return true:リトライ選択時 false:ゲーム終了選択時、入力ミス時
      */
-    private static boolean gameEnd() {
+    public static boolean gameEnd() {
         System.out.printf(Constants.MESSAGE_CHOOSE_RETRY, Constants.SELECTION_ONE, Constants.SELECTION_TWO);
         //入力フォーム。1または1,2以外で判定。
         String input = scan.nextLine();
