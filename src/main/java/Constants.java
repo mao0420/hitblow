@@ -45,12 +45,12 @@ public class Constants {
             ゲームクリア！
             正解の数字は%sでした！
             入力回数:%d回
-            
+                        
             """;
     public static final String MESSAGE_GAME_OVER = """
             ゲームオーバー！
             正解の数字は%sでした！
-            
+                        
             """;
     public static final String MESSAGE_CHOOSE_RETRY = """
             ゲームをリトライしますか？次の選択肢から数字で入力してください。

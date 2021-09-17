@@ -148,7 +148,7 @@ public class Contents {
             numberInputMiss(tryTimes, answer, inputHistory, numberEntryMissCount);
             return;
         }
-        if (("^[0-9]{3}$".matches(input) || ("^G$".matches(input)))) {
+        if (!((input.matches("^[0-9]{3}$") || (input.matches("^G$"))))) {
             //数値0~9の3桁、Gの1桁以外の入力を弾く
             System.out.println(Constants.ERROR_INPUT_THREE_DIGIT);
             //数値入力ミスメソッドへ

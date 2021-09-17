@@ -1,6 +1,6 @@
 import org.hamcrest.MatcherAssert;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -11,24 +11,17 @@ class ContentsTest {
     private final StandardInputStream in = new StandardInputStream();
     private final StandardOutputStream out = new StandardOutputStream();
 
-    @Before
+    @BeforeEach
     public void before() {
         System.setIn(in);
-        System.setOut(out);
     }
 
-    @After
+    @AfterEach
     public void after() {
         System.setIn(null);
         System.setOut(null);
     }
 
-//    //メインメソッド
-//    @Test
-//    void testMain() {
-//        boolean expect = true;
-//        Contents.main(new String[]{});
-//    }
 //    //ルール説明メソッド
 //    @Test
 //    void testRuleDescription() {
@@ -79,6 +72,7 @@ class ContentsTest {
 //    void testNumberEntry(){
 //
 //    }
+
 //    //判定メソッド
 //    @Test
 //    void testJudge() {
