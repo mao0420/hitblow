@@ -69,4 +69,19 @@ public class Constants {
     public static final int TEST_BLOW_ONE = 1;
     public static final int TEST_BLOW_TWO = 2;
     public static final int TEST_BLOW_THREE = 3;
+    public static final int TEST_JUDGE_GAME_CLEAR_TRY_TIMES = 0;
+    public static final int TEST_JUDGE_GAME_OVER_TRY_TIMES = 9;
+    public static final String TEST_MESSAGE_GAME_CLEAR = """
+            ゲームクリア！
+            正解の数字は[0, 1, 2]でした！
+            入力回数:1回
+                        
+            """;
+    public static final String TEST_MESSAGE_GAME_OVER = """
+            10回目の入力までに正解の数字を見つけられませんでした。
+                        
+            ゲームオーバー！
+            正解の数字は[0, 1, 2]でした！
+                        
+            """;
 }

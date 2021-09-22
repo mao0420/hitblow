@@ -186,7 +186,7 @@ public class Contents {
      * @param inputHistory 入力履歴
      * @param input        入力された数値
      */
-    private static void judge(int tryTimes, int[] inputArray, int[] answer, String[][] inputHistory, String input) {
+    public static void judge(int tryTimes, int[] inputArray, int[] answer, String[][] inputHistory, String input) {
         //試行回数を履歴用変数に保存
         int temporaryInputTimes = tryTimes;
         //試行回数を1増やす

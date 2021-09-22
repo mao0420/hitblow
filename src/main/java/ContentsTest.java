@@ -4,7 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class ContentsTest {
 
@@ -73,11 +74,31 @@ class ContentsTest {
 //
 //    }
 
-//    //判定メソッド
-//    @Test
-//    void testJudge() {
-//
-//    }
+    //判定メソッド クリア時テスト
+    @Test
+    void testJudgeGameClear() {
+        System.setOut(out);
+        int[] inputArray = {0, 1, 2};
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.judge(Constants.TEST_JUDGE_GAME_CLEAR_TRY_TIMES, inputArray, answer, inputHistory, "012");
+        testGameEndReadLine(3);
+        String saveLine = String.join("\n", out.readLine(), out.readLine(), out.readLine(), "\n");
+        MatcherAssert.assertThat(saveLine, is(Constants.TEST_MESSAGE_GAME_CLEAR));
+    }
+
+    //判定メソッド 失敗時テスト
+    @Test
+    void testJudgeGameOver() {
+        System.setOut(out);
+        int[] inputArray = {3, 4, 5};
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.judge(Constants.TEST_JUDGE_GAME_OVER_TRY_TIMES, inputArray, answer, inputHistory, "012");
+        testGameEndReadLine(3);
+        String saveLine = String.join("\n", out.readLine(), out.readLine(), out.readLine(), out.readLine(), "\n");
+        MatcherAssert.assertThat(saveLine, is(Constants.TEST_MESSAGE_GAME_OVER));
+    }
 
     //ヒットブロー計算メソッド ヒット数0テスト
     @Test
@@ -164,7 +185,6 @@ class ContentsTest {
     void testNumberInputMiss() {
         String[][] array = {{"0"}, {"0"}};
 
-        System.setIn(in);
         System.setOut(out);
 
         Contents.numberInputMiss(0, new int[]{0}, array, 4);
@@ -174,28 +194,26 @@ class ContentsTest {
     //ゲーム終了メソッド 終了時テスト
     @Test
     void testGameEndEnd() {
-        System.setIn(in);
         in.inputln("2");
         System.setOut(out);
         Contents.gameEnd();
-        testGameEndReadLine();
+        testGameEndReadLine(3);
         MatcherAssert.assertThat(out.readLine(), is(Constants.MESSAGE_GAME_END));
     }
 
     //ゲーム終了メソッド 異常入力終了時テスト
     @Test
     void testGameEndWarning() {
-        System.setIn(in);
         in.inputln("3");
         System.setOut(out);
         Contents.gameEnd();
-        testGameEndReadLine();
+        testGameEndReadLine(3);
         MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_END_OF_WARNING_2));
     }
 
-    //ゲーム終了メソッド 3行飛ばす
-    void testGameEndReadLine() {
-        for (int i = 0; i < 3; i++) {
+    //ゲーム終了メソッド n行飛ばす
+    void testGameEndReadLine(int skipLine) {
+        for (int i = 0; i < skipLine; i++) {
             out.readLine();
         }
     }
