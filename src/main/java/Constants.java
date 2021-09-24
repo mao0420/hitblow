@@ -71,6 +71,14 @@ public class Constants {
     public static final int TEST_BLOW_THREE = 3;
     public static final int TEST_JUDGE_GAME_CLEAR_TRY_TIMES = 0;
     public static final int TEST_JUDGE_GAME_OVER_TRY_TIMES = 9;
+    public static final String TEST_MESSAGE_START_MESSAGE = "それでは、ヒット&ブローを開始します。";
+    public static final String TEST_MESSAGE_GIVE_UP = """
+            ギブアップが選択されました。
+                        
+            ゲームオーバー！
+            正解の数字は[0, 1, 2]でした！
+                        
+            """;
     public static final String TEST_MESSAGE_GAME_CLEAR = """
             ゲームクリア！
             正解の数字は[0, 1, 2]でした！

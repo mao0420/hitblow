@@ -23,11 +23,35 @@ class ContentsTest {
         System.setOut(null);
     }
 
-//    //ルール説明メソッド
-//    @Test
-//    void testRuleDescription() {
-//
-//    }
+    //ルール説明メソッド ルール説明表示時テスト
+    @Test
+    void testRuleDescriptionRuleDisplay() {
+        in.inputln("1");
+        System.setOut(out);
+        Contents.ruleDescription(0);
+        testGameEndReadLine(24);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.TEST_MESSAGE_START_MESSAGE));
+    }
+
+    //ルール説明メソッド ルール説明不要時テスト
+    @Test
+    void testRuleDescriptionRuleInvisible() {
+        in.inputln("2");
+        System.setOut(out);
+        Contents.ruleDescription(0);
+        testGameEndReadLine(3);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.TEST_MESSAGE_START_MESSAGE));
+    }
+
+    //ルール説明メソッド 異常入力時テスト
+    @Test
+    void testRuleDescriptionAbnormalEntry() {
+        in.inputln("3");
+        System.setOut(out);
+        Contents.ruleDescription(0);
+        testGameEndReadLine(3);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_CHOOSE_ONE_OR_TWO));
+    }
 
     //チュートリアルテキストの整合性テスト
     @Test
@@ -68,11 +92,57 @@ class ContentsTest {
         assertEquals(Constants.TEST_ELEMENT_DIGITS, actual.length);
     }
 
-    //    //数値入力メソッド
-//    @Test
-//    void testNumberEntry(){
-//
-//    }
+    //数値入力メソッド ギブアップ時テスト
+    @Test
+    void testNumberEntryGiveUp() {
+        in.inputln("G");
+        System.setOut(out);
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.numberEntry(0, answer, inputHistory, 0);
+        testGameEndReadLine(4);
+        String saveLine = String.join("\n", out.readLine(), out.readLine(), out.readLine(), out.readLine(), "\n");
+        MatcherAssert.assertThat(saveLine, is(Constants.TEST_MESSAGE_GIVE_UP));
+    }
+
+    //数値入力メソッド 数値の長さテスト
+    @Test
+    void testNumberEntryNumericLength() {
+        in.inputln("12");
+        in.inputln("2");
+        System.setOut(out);
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.numberEntry(0, answer, inputHistory, 4);
+        testGameEndReadLine(4);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_INPUT_THREE_DIGIT));
+    }
+
+    //数値入力メソッド 正規表現テスト
+    @Test
+    void testNumberEntryRegexp() {
+        in.inputln("abc");
+        in.inputln("2");
+        System.setOut(out);
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.numberEntry(0, answer, inputHistory, 4);
+        testGameEndReadLine(4);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_INPUT_THREE_DIGIT));
+    }
+
+    //数値入力メソッド 重複確認テスト
+    @Test
+    void testNumberEntryDuplicate() {
+        in.inputln("121");
+        in.inputln("2");
+        System.setOut(out);
+        int[] answer = {0, 1, 2};
+        String[][] inputHistory = {{"0"}, {"0"}};
+        Contents.numberEntry(0, answer, inputHistory, 4);
+        testGameEndReadLine(4);
+        MatcherAssert.assertThat(out.readLine(), is(Constants.ERROR_DUPLICATE_NUMBERS));
+    }
 
     //判定メソッド クリア時テスト
     @Test

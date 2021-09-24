@@ -121,7 +121,7 @@ public class Contents {
      * @param inputHistory         入力履歴
      * @param numberEntryMissCount ミス入力回数カウンタ
      */
-    private static void numberEntry(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
+    public static void numberEntry(int tryTimes, int[] answer, String[][] inputHistory, int numberEntryMissCount) {
         System.out.printf(Constants.MESSAGE_INPUT_MESSAGE, tryTimes, Constants.SELECTION_G);
         //入力フォーム。3桁の整数、G、3桁以外の整数、整数やG以外の文字、3桁数字内の重複で判定。
         String input = scan.nextLine();
@@ -134,9 +134,8 @@ public class Contents {
         //＃確認用表示、入力された内容が変換されているかの確認。
         //System.out.println(input);
         if (Constants.SELECTION_G.equals(input)) {
-            //ギブアップ選択時、ゲームオーバーメソッドに移行する。
+            //ギブアップ選択時、ゲームオーバーメッセージを表示
             System.out.println(Constants.MESSAGE_CHOOSE_GIVE_UP);
-            //ゲームオーバーメッセージを表示
             System.out.printf(Constants.MESSAGE_GAME_OVER, Arrays.toString(answer));
             return;
         }
